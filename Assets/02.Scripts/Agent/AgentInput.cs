@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,31 +6,29 @@ using UnityEngine.Events;
 
 public class AgentInput : MonoBehaviour
 {
-    public UnityEvent<Vector2> OnMovementKeyPressed = null;
-    public UnityEvent<Vector2> OnPointerPoistionChanged = null; // 마우스 방향에 맞춰서 캐릭터 회전
+    public UnityEvent<float> isPlayerMovementInput;
+    public UnityEvent isJumpInput;
 
-    private Camera _mainCam;
+    private bool isGrounded; // 캐릭터가 땅에 있는지 여부를 확인할 변수
 
-    void Start()
+    private void Update()
     {
-        _mainCam = Camera.main;
+        MovementInput();
+        JumpInput();
     }
 
-    private void GetMovementInput()
+    private void MovementInput()
     {
         float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
 
-        Vector2 direction = new Vector2(x, y);
-        OnMovementKeyPressed?.Invoke(direction.normalized);
+        isPlayerMovementInput?.Invoke(x);
     }
 
-    private void GetPointerInput()
+    private void JumpInput()
     {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 0;
-        Vector2 mousePosInWorld = (Vector2)_mainCam.ScreenToWorldPoint(mousePos);
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
 
-        OnPointerPoistionChanged?.Invoke(mousePosInWorld);
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+            isJumpInput?.Invoke();
     }
 }
