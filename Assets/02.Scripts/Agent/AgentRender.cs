@@ -5,6 +5,7 @@ using UnityEngine;
 public class AgentRender : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+
     protected SpriteRenderer _spriteRenderer;
     protected Animator _animator;
 
