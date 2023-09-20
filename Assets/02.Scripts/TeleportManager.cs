@@ -9,55 +9,60 @@ public class TeleportManager : MonoBehaviour
 
     private float _teleportTime = 0.5f;
 
+    private bool _isDoorRange = false; // door 범위 안에 player가 있는지
+    public bool isControl = true; // 플레이어 Input을 제어
+
     private Animator _animator;
-    private Animator _playerAnimator;
+    private Animator _endDoorAnimator;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        _playerAnimator = player.GetComponent<Animator>();
+        _endDoorAnimator = endDoorPos.GetComponent<Animator>();
     }
 
-    IEnumerator TeleportMover()
+    public void TelePortMove()
     {
-        yield return null;
+        if (_isDoorRange)
+        {
+            StartCoroutine(DoorInMoveRoutine());
+        }
+    }
+
+    IEnumerator DoorInMoveRoutine() // In
+    {
         _animator.SetBool("Door", true);
-        _playerAnimator.SetBool("Teleport", true);
+        isControl = false; // 플레이어 움직임 제어
 
         yield return new WaitForSeconds(_teleportTime);
 
-        player.GetComponent<AgentInput>().isControl = false; // 플레이어 움직임 제어
-        player.transform.position = endDoorPos.transform.position;
+        player.transform.position = endDoorPos.transform.position; // 텔레포트
+
+        _animator.SetBool("Door", false);
+        _endDoorAnimator.SetBool("Door", true);
+        yield return new WaitForSeconds(_teleportTime);
+        _endDoorAnimator.SetBool("Door", false);
+        isControl = true;
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Enter");
+
         if (collision.CompareTag("Player"))
         {
-            player = collision.gameObject;
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player") && Input.GetKeyDown(KeyCode.W))
-        {
-            StartCoroutine(TeleportMover());
+            _isDoorRange = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        _animator.SetBool("Door", false);
-        _playerAnimator.SetBool("Teleport", false);
+        Debug.Log("Exit");
 
-        StartCoroutine(waitTeleportTime());
-
-        player.GetComponent<AgentInput>().isControl = true;
-    }
-
-    IEnumerator waitTeleportTime()
-    {
-        yield return new WaitForSeconds(_teleportTime);
+        if (collision.CompareTag("Player"))
+        {
+            _isDoorRange = false;
+        }
     }
 }

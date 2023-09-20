@@ -5584,7 +5584,7 @@ GameObject:
   - component: {fileID: 319771368}
   m_Layer: 0
   m_Name: Stage1 Teleport
-  m_TagString: Door
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5617,10 +5617,10 @@ GameObject:
   - component: {fileID: 369069853}
   - component: {fileID: 369069857}
   - component: {fileID: 369069856}
-  - component: {fileID: 369069855}
   - component: {fileID: 369069854}
+  - component: {fileID: 369069858}
   m_Layer: 0
-  m_Name: Door-1 (1)
+  m_Name: Door-2
   m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5634,7 +5634,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369069852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 55.56, y: -7.21, z: 0}
+  m_LocalPosition: {x: 15.01, y: -3.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5662,20 +5662,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &369069855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369069852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ba476a2aecb4894d8d0712b86867a1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endDoorPos: {fileID: 1852589613}
-  player: {fileID: 600555368}
 --- !u!61 &369069856
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5754,6 +5740,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &369069858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369069852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba476a2aecb4894d8d0712b86867a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endDoorPos: {fileID: 1852589613}
+  player: {fileID: 600555368}
+  isControl: 1
 --- !u!1 &369593266
 GameObject:
   m_ObjectHideFlags: 0
@@ -7394,10 +7395,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isDoorTeleportInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1852589619}
+        m_TargetAssemblyTypeName: TeleportManager, Assembly-CSharp
+        m_MethodName: TelePortMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 369069858}
+        m_TargetAssemblyTypeName: TeleportManager, Assembly-CSharp
+        m_MethodName: TelePortMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  isControl: 1
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -7539,7 +7566,7 @@ GameObject:
   - component: {fileID: 819316929}
   m_Layer: 0
   m_Name: MovementCollider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7589,7 +7616,7 @@ GameObject:
   - component: {fileID: 974516319}
   m_Layer: 0
   m_Name: VisualSprite
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11646,7 +11673,7 @@ GameObject:
   - component: {fileID: 1592371887}
   m_Layer: 0
   m_Name: AgentSound
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11677,8 +11704,8 @@ GameObject:
   - component: {fileID: 1852589615}
   - component: {fileID: 1852589614}
   - component: {fileID: 1852589616}
-  - component: {fileID: 1852589617}
   - component: {fileID: 1852589618}
+  - component: {fileID: 1852589619}
   m_Layer: 0
   m_Name: Door-1
   m_TagString: Door
@@ -11779,20 +11806,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.172019, y: 3.9783874}
   m_EdgeRadius: 0
---- !u!114 &1852589617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1852589613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ba476a2aecb4894d8d0712b86867a1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endDoorPos: {fileID: 369069852}
-  player: {fileID: 600555368}
 --- !u!95 &1852589618
 Animator:
   serializedVersion: 5
@@ -11814,3 +11827,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1852589619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852589613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba476a2aecb4894d8d0712b86867a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endDoorPos: {fileID: 369069852}
+  player: {fileID: 600555368}
+  isControl: 1
