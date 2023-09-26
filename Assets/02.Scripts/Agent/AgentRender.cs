@@ -30,4 +30,14 @@ public class AgentRender : MonoBehaviour
         else
             _animator.SetBool("Walk", false);
     }
+
+    public void HitAnimation()
+    {
+        _animator.SetTrigger("Hit");
+    }
+
+    public void AttackAnimation()
+    {
+        _animator.SetTrigger("Attack");
+    }
 }

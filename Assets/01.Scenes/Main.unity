@@ -7265,6 +7265,7 @@ GameObject:
   - component: {fileID: 600555371}
   - component: {fileID: 600555374}
   - component: {fileID: 600555373}
+  - component: {fileID: 600555375}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7286,6 +7287,7 @@ Transform:
   m_Children:
   - {fileID: 974516316}
   - {fileID: 1592371887}
+  - {fileID: 768000962}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7421,9 +7423,65 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isAttackInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 974516319}
+        m_TargetAssemblyTypeName: AgentRender, Assembly-CSharp
+        m_MethodName: AttackAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 600555375}
+        m_TargetAssemblyTypeName: AgentAttack, Assembly-CSharp
+        m_MethodName: AttackJudgment
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  isHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 974516319}
+        m_TargetAssemblyTypeName: AgentRender, Assembly-CSharp
+        m_MethodName: HitAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &600555375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600555368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd06cf249008d3048aa6cd12224d2977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: {fileID: 768000962}
+  colliderSize: {x: 1.87, y: 3.24}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -7551,6 +7609,37 @@ Transform:
   - {fileID: 575209858}
   - {fileID: 1121084687}
   m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &768000961
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 768000962}
+  m_Layer: 0
+  m_Name: Melee
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &768000962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768000961}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 600555370}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &974516315
@@ -11689,21 +11778,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2818b426189fa9041af3a076c381f189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCannonShoot:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7464036728436594980, guid: a5e7911b526f0fe4394645dd15f30f6c, type: 3}
-        m_TargetAssemblyTypeName: CannonBallMovement, Assembly-CSharp
-        m_MethodName: BallMoveTo
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   cannonBallPrefab: {fileID: 7464036728436595001, guid: a5e7911b526f0fe4394645dd15f30f6c, type: 3}
 --- !u!1 &1592371886
 GameObject:
@@ -11885,3 +11959,47 @@ MonoBehaviour:
   endDoorPos: {fileID: 369069852}
   player: {fileID: 600555368}
   isControl: 1
+--- !u!1 &1903257701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1903257703}
+  - component: {fileID: 1903257702}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1903257702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903257701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4771d125ae6a44ebd69a7c5e5edbcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1903257703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903257701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

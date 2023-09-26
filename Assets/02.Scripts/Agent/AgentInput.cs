@@ -9,6 +9,8 @@ public class AgentInput : MonoBehaviour
     public UnityEvent<float> isPlayerMovementInput;
     public UnityEvent isJumpInput;
     public UnityEvent isDoorTeleportInput;
+    public UnityEvent isAttackInput;
+    public UnityEvent isHit;
 
     [SerializeField] private LayerMask groundLayer; // 땅 레이어를 지정할 변수
 
@@ -29,6 +31,7 @@ public class AgentInput : MonoBehaviour
 
         JumpInput();
         DoorTeleportInput();
+        AttackInput();
     }
 
     private void MovementInput()
@@ -57,6 +60,22 @@ public class AgentInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             isDoorTeleportInput?.Invoke();
+        }
+    }
+
+    private void AttackInput()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            isAttackInput?.Invoke();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Obstacle"))
+        {
+            isHit?.Invoke();
         }
     }
 }

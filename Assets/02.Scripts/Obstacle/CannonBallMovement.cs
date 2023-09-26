@@ -33,9 +33,9 @@ public class CannonBallMovement : MonoBehaviour
 
     private void BallMovement()
     {
-        if (!_cannonSpriteRenderer.flipX) // ¿ÞÂÊÀ¸·Î ½ô
+        if (_cannonSpriteRenderer.flipX == false) // ¿ÞÂÊÀ¸·Î ½ô
             _velocity = Vector3.left * _moveSpeed;
-        else if (_cannonSpriteRenderer.flipX) // ¿À¸¥ÂÊÀ¸·Î ½ô
+        else if (_cannonSpriteRenderer.flipX == true) // ¿À¸¥ÂÊÀ¸·Î ½ô
             _velocity = Vector3.right * _moveSpeed;
 
         Vector3 currentVelocity = _velocity * Time.deltaTime;
