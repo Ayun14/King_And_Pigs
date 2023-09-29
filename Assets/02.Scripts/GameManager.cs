@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
+    public static GameManager _instance;
 
-    private int _playerHP;
+    private int _playerHP = 1000;
     public int PlayerHP { get { return _playerHP; } }
 
     private void Awake()
@@ -20,5 +20,6 @@ public class GameManager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _playerHP -= damage;
+        Debug.Log("플레이어 HP : "+ _playerHP);
     }
 }
