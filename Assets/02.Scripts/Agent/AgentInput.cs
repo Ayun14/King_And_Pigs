@@ -71,9 +71,9 @@ public class AgentInput : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Obstacle"))
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
             isHit?.Invoke();
         }

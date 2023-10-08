@@ -6,21 +6,40 @@ using UnityEngine.Events;
 [RequireComponent(typeof(BoxCollider2D))]
 public class EnemyAttack : MonoBehaviour
 {
-    public UnityAction isAttackState; // 공격일 때
+    //public UnityAction AttackState;
 
-    private int _enemyDamage = 100;
+    [SerializeField] private float attackCoolTime = 1.0f;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public bool isAttack;
+
+    private Animator _animator;
+    private EnemyBehavior _enemyBehavior;
+
+    private void Start()
     {
-        if (collision.CompareTag("Player"))
-        {
-            isAttackState?.Invoke();
-            GameManager._instance.TakeDamage(_enemyDamage);
-        }
+        // EnemyBehavior 스크립트의 OnAttack 액션을 구독
+        _animator = GetComponentInParent<Animator>();
+        _enemyBehavior = GetComponent<EnemyBehavior>();
+
+        _enemyBehavior.OnAttack += AttackPlayer;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnDestroy()
     {
-        // 원래대로 왔다갔다 거리는 State로 바꾸기
+        _enemyBehavior.OnAttack -= AttackPlayer;
+    }
+
+    public void AttackPlayer()
+    {
+        isAttack = true;
+        Debug.Log("공격 공격!");
+        _animator.SetTrigger("Attack");
+        StartCoroutine(AttackRoutine());
+    }
+
+    IEnumerator AttackRoutine()
+    {
+        yield return new WaitForSeconds(attackCoolTime);
+        isAttack = false;
     }
 }
