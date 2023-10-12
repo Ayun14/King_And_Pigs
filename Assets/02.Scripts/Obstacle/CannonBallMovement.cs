@@ -23,12 +23,15 @@ public class CannonBallMovement : MonoBehaviour
 
         #region effect »ý¼º
         if (Physics2D.Raycast(transform.position, Vector2.down, 0.01f, groundLayer)) // ¶¥¿¡ ´êÀ¸¸é
-        {
-            GameObject effect = Instantiate(effectPrefab, transform.position, Quaternion.identity);
-            Destroy(effect, 0.5f);
-            Destroy(gameObject);
-        }
+            EffectInstantiate();
         #endregion
+    }
+
+    private void EffectInstantiate()
+    {
+        GameObject effect = Instantiate(effectPrefab, transform.position, Quaternion.identity);
+        Destroy(effect, 0.5f);
+        Destroy(gameObject);
     }
 
     private void BallMovement()
@@ -41,5 +44,13 @@ public class CannonBallMovement : MonoBehaviour
         Vector3 currentVelocity = _velocity * Time.deltaTime;
 
         transform.position += currentVelocity;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            EffectInstantiate();
+        }
     }
 }

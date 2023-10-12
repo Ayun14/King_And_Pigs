@@ -46,12 +46,11 @@ public class AgentInput : MonoBehaviour
 
     private void JumpInput()
     {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1f, groundLayer); // 한 번만 점프 가능한 레이
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1.2f, groundLayer); // 한 번만 점프 가능한 레이
 
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             isJumpInput?.Invoke();
-            Debug.Log("땅임 점프 ㄱㄴ");
         }
     }
 
@@ -72,6 +71,14 @@ public class AgentInput : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            isHit?.Invoke();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
