@@ -13,26 +13,26 @@ public class EnemyAttack : MonoBehaviour
     public bool isAttack;
 
     private Animator _animator;
-    private EnemyBehavior _enemyBehavior;
+    private EnemyAI _enemyAI;
 
     private void Start()
     {
-        // EnemyBehavior 스크립트의 OnAttack 액션을 구독
+        // EnemyAI 스크립트의 OnAttack 액션을 구독
         _animator = GetComponentInParent<Animator>();
-        _enemyBehavior = GetComponent<EnemyBehavior>();
+        _enemyAI = GetComponent<EnemyAI>();
 
-        _enemyBehavior.OnAttack += AttackPlayer;
+        _enemyAI.onPlayerAttack += AttackPlayer;
     }
 
     private void OnDestroy()
     {
-        _enemyBehavior.OnAttack -= AttackPlayer;
+        _enemyAI.onPlayerAttack -= AttackPlayer;
     }
 
     public void AttackPlayer()
     {
         isAttack = true;
-        Debug.Log("공격 공격!");
+        Debug.Log("데미지 주기");
         _animator.SetTrigger("Attack");
         StartCoroutine(AttackRoutine());
     }
