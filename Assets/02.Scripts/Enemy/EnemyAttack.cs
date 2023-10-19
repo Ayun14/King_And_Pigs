@@ -10,7 +10,7 @@ public class EnemyAttack : MonoBehaviour
 
     [SerializeField] private float attackCoolTime = 1.0f;
 
-    public bool isAttack;
+    private bool isAttack = false;
 
     private Animator _animator;
     private EnemyAI _enemyAI;
@@ -18,21 +18,24 @@ public class EnemyAttack : MonoBehaviour
     private void Start()
     {
         // EnemyAI 스크립트의 OnAttack 액션을 구독
-        _animator = GetComponentInParent<Animator>();
         _enemyAI = GetComponent<EnemyAI>();
+        _animator = GetComponentInParent<Animator>();
 
-        _enemyAI.onPlayerAttack += AttackPlayer;
+        _enemyAI.isTargetAttack += AttackPlayer;
     }
 
     private void OnDestroy()
     {
-        _enemyAI.onPlayerAttack -= AttackPlayer;
+        _enemyAI.isTargetAttack -= AttackPlayer;
     }
 
     public void AttackPlayer()
     {
+        if (isAttack) return;
+
         isAttack = true;
         Debug.Log("데미지 주기");
+        _animator.SetBool("Idle", true);
         _animator.SetTrigger("Attack");
         StartCoroutine(AttackRoutine());
     }

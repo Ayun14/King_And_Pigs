@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AgentAttack : MonoBehaviour
 {
+    public UnityEvent isAttack;
+
     [SerializeField] private Transform pos;
     [SerializeField] private Vector2 colliderSize;
 
@@ -15,6 +18,8 @@ public class AgentAttack : MonoBehaviour
             if (collider.tag == "Obstacle")
             {
                 // enemy 들에게 애니메이션, 데미지, 넉벡 주기
+                isAttack?.Invoke();
+                Debug.Log("적과 닿음");
             }
         }
     }

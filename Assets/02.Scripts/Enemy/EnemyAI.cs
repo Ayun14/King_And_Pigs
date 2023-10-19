@@ -8,54 +8,35 @@ using Pathfinding;
 [RequireComponent(typeof(BoxCollider2D))]
 public class EnemyAI : MonoBehaviour
 {
-    public event Action onPlayerAttack;
+    public enum EnemyState
+    {
+        MoveTo,
+        FollowingTarget,
+        Attack
+    }
+    private EnemyState _currentState;
+    public EnemyState CurrentState { get => _currentState; }
 
-    #region A*
-    [Header("Pathfinding")]
+    public event Action isTargetAttack;
+    public event Action isFindTarget;
+
     [SerializeField] private Transform target;
-    [SerializeField] private float activateDistance = 50f;
-    [SerializeField] private float pathUpdateSeconds = 0.5f;
 
-    [Header("Physics")]
-    public float speed = 200f, jumpForce = 100f;
-    public float nextWaypointDistance = 3f;
-    public float jumpNodeHeightRequirement = 0.8f;
-    public float jumpModifier = 0.3f;
-    public float jumpCheckOffset = 0.1f;
-
-    [Header("Custom Behavior")]
-    public bool followEnabled = true;
-    public bool jumpEnabled = true, isJumping, isInAir;
-    public bool directionLookEnabled = true;
-    public bool targetInDistance = false; // 플레이어가 들어왔나?
-    public bool attackThePlayer = false; // 왔다갔다 하고 있나
-
-    [SerializeField] Vector3 startOffset;
-
-    private Path path;
-    private int currentWaypoint = 0;
-    [SerializeField] public RaycastHit2D isGrounded;
-    Seeker seeker;
-    Rigidbody2D _rigid;
-    private bool isOnCoolDown;
-    #endregion
+    private bool targetInDistance = false; // 플레이어가 들어왔나?
+    private bool attackThePlayer = false; // 왔다갔다 하고 있나
 
     #region MoveToNextPos
     [Header("MoveToNextPos")]
-    [SerializeField] private List<Transform> points;
+    [SerializeField] private List<Transform> points; // List사용
     [SerializeField] private int nextID = 0;
     [SerializeField] private float moveSpeed = 2;
 
     private int _idChangeValue = 1;
-    //private EnemyBehavior _enemyBehavior;
     #endregion
-
-    private Animator _animator;
-    private EnemyAttack _enemyAttack;
-
+    
     private void Reset()
     {
-        //Init();
+        Init();
     }
 
     private void Init()
@@ -80,50 +61,31 @@ public class EnemyAI : MonoBehaviour
         points.Add(p2.transform);
     }
 
-    private void Start()
-    {
-        #region A*
-
-        seeker = GetComponent<Seeker>();
-        _rigid = GetComponent<Rigidbody2D>();
-        isJumping = false;
-        isInAir = false;
-        isOnCoolDown = false;
-
-        InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
-
-        #endregion
-
-        _animator = GetComponent<Animator>();
-        _enemyAttack = GetComponent<EnemyAttack>();
-    }
-
-    private void FixedUpdate()
+    private void Update()
     {
         if (target != null) // 플레이어 null일시 return
         {
             if (Vector2.Distance(transform.position, target.transform.position) < 2f)
+            {
                 attackThePlayer = true;
+                _currentState = EnemyState.Attack;
+                isTargetAttack?.Invoke();
+            }
             else attackThePlayer = false;
 
 
-            if (targetInDistance && attackThePlayer && !_enemyAttack.isAttack)
-            {
-                _animator.SetBool("Idle", true);
-                onPlayerAttack?.Invoke();
-            }
+            if (attackThePlayer) return; // 공격중이면 return
 
-            if (attackThePlayer) return;
 
             if (!targetInDistance)
             {
-                _animator.SetBool("Idle", false);
+                _currentState = EnemyState.MoveTo;
                 MoveToNextPoint();
             }
-            else if (targetInDistance && followEnabled)
+            else if (targetInDistance)
             {
-                _animator.SetBool("Idle", false);
-                PathFollow();
+                _currentState = EnemyState.FollowingTarget;
+                isFindTarget?.Invoke();
             }
         }
     }
@@ -151,110 +113,6 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    #region A* 코드
-
-    private void UpdatePath()
-    {
-        if (followEnabled && targetInDistance && seeker.IsDone())
-        {
-            seeker.StartPath(_rigid.position, target.position, OnPathComplete);
-        }
-    }
-
-    private void PathFollow()
-    {
-        if (path == null)
-        {
-            return;
-        }
-
-        // Reached end of path
-        if (currentWaypoint >= path.vectorPath.Count)
-        {
-            return;
-        }
-
-        StartCoroutine(FindThePlayerRoutine()); // 플레이어 발견 UI 띄우는 작업
-
-        // See if colliding with anything
-        startOffset = transform.position - new Vector3(0f, GetComponent<Collider2D>().bounds.extents.y + jumpCheckOffset, transform.position.z);
-        isGrounded = Physics2D.Raycast(startOffset, -Vector3.up, 0.05f);
-
-        // Direction Calculation
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - _rigid.position).normalized;
-        Vector2 force = direction * speed;
-
-        // Jump
-        if (jumpEnabled && isGrounded && !isInAir && !isOnCoolDown)
-        {
-            if (direction.y > jumpNodeHeightRequirement)
-            {
-                if (isInAir) return;
-                isJumping = true;
-                _rigid.velocity = new Vector2(_rigid.velocity.x, jumpForce);
-                StartCoroutine(JumpCoolDown());
-
-            }
-        }
-        if (isGrounded)
-        {
-            isJumping = false;
-            isInAir = false;
-        }
-        else
-        {
-            isInAir = true;
-        }
-
-        // Movement
-        _rigid.velocity = new Vector2(force.x, _rigid.velocity.y);
-
-        // Next Waypoint
-        float distance = Vector2.Distance(_rigid.position, path.vectorPath[currentWaypoint]);
-        if (distance < nextWaypointDistance)
-        {
-            currentWaypoint++;
-        }
-
-        // Direction Graphics Handling
-        if (directionLookEnabled)
-        {
-            if (_rigid.velocity.x > 0.05f)
-            {
-                transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
-            else if (_rigid.velocity.x < -0.05f)
-            {
-                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
-        }
-    }
-
-    private void OnPathComplete(Path p)
-    {
-        if (!p.error)
-        {
-            path = p;
-            currentWaypoint = 0;
-        }
-    }
-
-    IEnumerator JumpCoolDown()
-    {
-        isOnCoolDown = true;
-        yield return new WaitForSeconds(1f);
-        isOnCoolDown = false;
-    }
-
-    #endregion
-
-    IEnumerator FindThePlayerRoutine()
-    {
-        // UI 띄우는거 만들기
-        transform.position = Vector2.MoveTowards(transform.position, transform.position, 0);
-        yield return new WaitForSeconds(1f);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision) // 플레이어 감지 범위 Collider
     {
         // 플레이어 감지
@@ -264,9 +122,6 @@ public class EnemyAI : MonoBehaviour
             {
                 targetInDistance = true;
             }
-            // state을 나눠서 공격, 쫒아가기, 넉백 등으로 구현하기
-            // 플레이어를 한 번 발견하면 죽을 때 까지 쫒아가면서 공격함
-            // 플레이어를 발견했을 때 잠시 멈춰 UI를 띄운 후 쫒아감
         }
     }
 }

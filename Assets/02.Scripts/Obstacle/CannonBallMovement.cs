@@ -9,12 +9,12 @@ public class CannonBallMovement : MonoBehaviour
 
     private float _moveSpeed = 8f;
 
-    private SpriteRenderer _cannonSpriteRenderer;
+    private Cannon _cannon;
     private Vector3 _velocity;
 
     private void Start()
     {
-        _cannonSpriteRenderer = GetComponentInParent<SpriteRenderer>();
+        _cannon = GetComponentInParent<Cannon>();
     }
 
     private void Update()
@@ -36,9 +36,9 @@ public class CannonBallMovement : MonoBehaviour
 
     private void BallMovement()
     {
-        if (_cannonSpriteRenderer.flipX == false) // ¿ÞÂÊÀ¸·Î ½ô
+        if (_cannon.cannonType == Cannon.CannonType.Left) // ¿ÞÂÊÀ¸·Î ½ô
             _velocity = Vector3.left * _moveSpeed;
-        else if (_cannonSpriteRenderer.flipX == true) // ¿À¸¥ÂÊÀ¸·Î ½ô
+        else if (_cannon.cannonType == Cannon.CannonType.Right) // ¿À¸¥ÂÊÀ¸·Î ½ô
             _velocity = Vector3.right * _moveSpeed;
 
         Vector3 currentVelocity = _velocity * Time.deltaTime;

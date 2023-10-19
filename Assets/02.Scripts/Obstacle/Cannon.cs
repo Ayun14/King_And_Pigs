@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour
 {
+    public enum CannonType
+    {
+        Left,
+        Right
+    }
+
     [SerializeField] private GameObject cannonBallPrefab;
+    public CannonType cannonType;
 
     private float _delayTime = 3f;
     private float currentTime = 0;
 
-    private SpriteRenderer _spriteRenderer;
     private Animator _animator;
 
     private void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
     }
 
