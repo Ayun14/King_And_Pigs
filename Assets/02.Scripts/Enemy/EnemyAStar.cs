@@ -147,6 +147,7 @@ public class EnemyAStar : MonoBehaviour
         yield return new WaitForSeconds(1f);
         isOnCoolDown = false;
     }
+
     IEnumerator FindThePlayerRoutine()
     {
         if (enemyUIPlaying) yield break;

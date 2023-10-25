@@ -25,6 +25,9 @@ public class EnemyAI : MonoBehaviour
     private bool targetInDistance = false; // 플레이어가 들어왔나?
     private bool attackThePlayer = false; // 왔다갔다 하고 있나
 
+    private EnemyHealth _enemyHealth;
+    private Animator _animator;
+
     #region MoveToNextPos
     [Header("MoveToNextPos")]
     [SerializeField] private List<Transform> points; // List사용
@@ -61,9 +64,15 @@ public class EnemyAI : MonoBehaviour
         points.Add(p2.transform);
     }
 
+    private void Start()
+    {
+        _enemyHealth = GetComponent<EnemyHealth>();
+        _animator = GetComponent<Animator>();
+    }
+
     private void Update()
     {
-        if (target != null) // 플레이어 null일시 return
+        if (target != null && !_enemyHealth.isDead) // 플레이어 null일시 return
         {
             if (Vector2.Distance(transform.position, target.transform.position) < 2f)
             {
@@ -85,6 +94,7 @@ public class EnemyAI : MonoBehaviour
             else if (targetInDistance)
             {
                 _currentState = EnemyState.FollowingTarget;
+                _animator.SetBool("Idle", false);
                 isFindTarget?.Invoke();
             }
         }

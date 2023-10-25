@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7464036728436595003}
   - component: {fileID: 7464036728436595000}
-  - component: {fileID: 7464036728436595002}
   - component: {fileID: 7464036728436594981}
+  - component: {fileID: 7464036728436595002}
   - component: {fileID: 7464036728436594980}
   m_Layer: 0
   m_Name: CannonBall
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 22806709
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -326694583, guid: 4af9fc1e02c3ff14db944fe9de788410, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -87,22 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &7464036728436595002
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7464036728436595001}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.375
 --- !u!50 &7464036728436594981
 Rigidbody2D:
   serializedVersion: 4
@@ -124,6 +108,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &7464036728436595002
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7464036728436595001}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.375
 --- !u!114 &7464036728436594980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectPrefab: {fileID: 2831746001974553640, guid: 5cbe0d07fd821d8499518441de9e3051, type: 3}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
+  colliderSize: {x: 1, y: 1}
+  ballLifeTime: 3.5
+  damage: 1

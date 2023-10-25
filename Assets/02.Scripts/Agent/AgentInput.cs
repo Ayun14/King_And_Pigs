@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Cinemachine;
 
 public class AgentInput : MonoBehaviour
 {
@@ -18,9 +19,12 @@ public class AgentInput : MonoBehaviour
 
     private TeleportManager _teleportManager;
 
+    private CinemachineImpulseSource _impulseSource;
+
     private void Start()
     {
         _teleportManager = GameObject.FindGameObjectWithTag("Door").GetComponent<TeleportManager>();
+        _impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     private void Update()
@@ -30,7 +34,6 @@ public class AgentInput : MonoBehaviour
         if (!_teleportManager.isControl) return;
 
         JumpInput();
-        DoorTeleportInput();
         AttackInput();
     }
 
@@ -54,19 +57,12 @@ public class AgentInput : MonoBehaviour
         }
     }
 
-    private void DoorTeleportInput()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            isDoorTeleportInput?.Invoke();
-        }
-    }
-
     private void AttackInput()
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
             isAttackInput?.Invoke();
+            CameraShake.Instance.CameraShaking(_impulseSource, 0.7f);
         }
     }
 

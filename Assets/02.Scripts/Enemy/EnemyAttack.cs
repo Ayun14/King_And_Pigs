@@ -34,7 +34,6 @@ public class EnemyAttack : MonoBehaviour
         if (isAttack) return;
 
         isAttack = true;
-        Debug.Log("데미지 주기");
         _animator.SetBool("Idle", true);
         _animator.SetTrigger("Attack");
         StartCoroutine(AttackRoutine());
