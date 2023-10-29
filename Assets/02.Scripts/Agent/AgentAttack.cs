@@ -19,6 +19,7 @@ public class AgentAttack : MonoBehaviour
         {
             EnemyHealth enemyHeath = collider.GetComponent<EnemyHealth>();
             CannonBallMovement cannonBall = collider.GetComponent<CannonBallMovement>();
+            IInteraction iInteraction = collider.GetComponent<IInteraction>();
 
             if (enemyHeath)
             {
@@ -29,6 +30,10 @@ public class AgentAttack : MonoBehaviour
             {
                 Debug.Log("ÆøÅº ´øÁö±â");
                 cannonBall.GetKnockBack(this.transform, 30f);
+            }
+            else if (iInteraction != null)
+            {
+                iInteraction.IsInteraction();
             }
         }
     }

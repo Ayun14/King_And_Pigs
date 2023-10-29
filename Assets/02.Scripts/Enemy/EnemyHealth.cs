@@ -8,7 +8,9 @@ public class EnemyHealth : MonoBehaviour
 {
     public Action<Transform, float> isKnockBack;
 
+    [SerializeField] private float knockBackForce = 30f;
     [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private GameObject hpBar;
     [SerializeField] private float maxHP;
     private float _currnetHP;
 
@@ -19,6 +21,7 @@ public class EnemyHealth : MonoBehaviour
 
     private HPViewer _hpViewer;
     private Rigidbody2D _rigid;
+    private Animator _animator;
 
     private CinemachineImpulseSource _impulseSource;
 
@@ -28,6 +31,7 @@ public class EnemyHealth : MonoBehaviour
 
         boxCollider.enabled = true;
 
+        _animator = GetComponent<Animator>();
         _hpViewer = GetComponentInChildren<HPViewer>();
         _rigid = GetComponent<Rigidbody2D>();
 
@@ -50,16 +54,17 @@ public class EnemyHealth : MonoBehaviour
         if (_currnetHP <= 0)
         {
             isDead = true;
-            _rigid.gravityScale = 0;
-            boxCollider.enabled = false;
 
             CameraShake.Instance.CameraShaking(_impulseSource, 1.5f);
 
-            isKnockBack?.Invoke(targetPos, 50f);
+            isKnockBack?.Invoke(targetPos, knockBackForce);
+            _animator.SetTrigger("Die");
+            hpBar.SetActive(false);
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
 
-            Destroy(gameObject);
+            _rigid.gravityScale = 0;
+            boxCollider.enabled = false;
         }
     }
 

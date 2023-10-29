@@ -28,7 +28,5 @@ public class KnockBack : MonoBehaviour
         isKnockBack = true;
         Vector2 difference = (transform.position - damageSource.position).normalized * knockbackThrust * _rigid.mass;
         _rigid.AddForce(difference, ForceMode2D.Impulse);
-
-        transform.DORotateQuaternion(Quaternion.Euler(0, 0, -90f), 2f); // 방향 천천히 틀기
     }
 }
