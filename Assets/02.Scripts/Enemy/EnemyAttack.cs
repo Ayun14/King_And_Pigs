@@ -6,8 +6,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(BoxCollider2D))]
 public class EnemyAttack : MonoBehaviour
 {
-    //public UnityAction AttackState;
-
+    public UnityEvent isEnemyAttack;
+    [SerializeField] private float damage = 1;
     [SerializeField] private float attackCoolTime = 1.0f;
 
     private bool isAttack = false;
@@ -34,6 +34,10 @@ public class EnemyAttack : MonoBehaviour
         if (isAttack) return;
 
         isAttack = true;
+        isEnemyAttack?.Invoke();
+
+        GameManager.Instance.TakeDamage(damage); // 플레이어에게 대미지
+
         _animator.SetBool("Idle", true);
         _animator.SetTrigger("Attack");
         StartCoroutine(AttackRoutine());

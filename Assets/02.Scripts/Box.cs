@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Box : MonoBehaviour, IInteraction
 {
-    //[SerializeField] private GameObject[] itemPrefabs;
-    // 랜덤으로 아이템도 생성해야함
+    [SerializeField] private GameObject[] itemPrefabs;
 
     private ExplosiveEffect _explosive;
     private Animator _animator;
@@ -16,6 +15,11 @@ public class Box : MonoBehaviour, IInteraction
         _animator = GetComponent<Animator>();
     }
 
+    public void IsInteraction(Transform trm)
+    {
+        StartCoroutine(BoxBurstRoutine());
+    }
+
     IEnumerator BoxBurstRoutine()
     {
         _animator.SetBool("Shoot", true);
@@ -24,10 +28,5 @@ public class Box : MonoBehaviour, IInteraction
         _explosive.Explosion();
 
         Destroy(gameObject);
-    }
-
-    public void IsInteraction()
-    {
-        StartCoroutine(BoxBurstRoutine());
     }
 }

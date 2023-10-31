@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class CannonBallMovement : MonoBehaviour
 {
+    public UnityEvent isCannonBallAttack;
+
     [SerializeField] private GameObject effectPrefab;
     [SerializeField] private Vector2 colliderSize;
     [SerializeField] private float ballLifeTime = 4.5f;
@@ -47,14 +50,19 @@ public class CannonBallMovement : MonoBehaviour
         foreach (Collider2D collider in collider2Ds)
         {
             EnemyHealth enemyHeath = collider.GetComponent<EnemyHealth>();
+            AgentRender agentRender = collider.GetComponentInChildren<AgentRender>();
 
             if (enemyHeath)
             {
                 Debug.Log("적에게 공격");
                 enemyHeath.TakeDamage(damage, this.transform);
             }
-            // 플레이어에게 대미지 주기
-            Debug.Log("플레이어에게 공격");
+            else if (agentRender)
+            {
+                Debug.Log("플레이어에게 공격");
+                agentRender.HitAnimation();
+                GameManager.Instance.TakeDamage(damage);
+            }
         }
 
         Destroy(effect, 0.5f);

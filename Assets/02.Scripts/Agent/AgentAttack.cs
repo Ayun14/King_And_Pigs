@@ -33,7 +33,7 @@ public class AgentAttack : MonoBehaviour
             }
             else if (iInteraction != null)
             {
-                iInteraction.IsInteraction();
+                iInteraction.IsInteraction(this.transform);
             }
         }
     }

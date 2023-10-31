@@ -33,7 +33,7 @@ public class AgentRender : MonoBehaviour
 
     public void HitAnimation()
     {
-        _animator.SetTrigger("Hit");
+        _animator.Play("Hit");
     }
 
     public void AttackAnimation()

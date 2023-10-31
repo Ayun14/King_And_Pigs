@@ -11980,9 +11980,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 695773807
-  m_SortingLayer: 3
-  m_SortingOrder: 5
+  m_SortingLayerID: 22806709
+  m_SortingLayer: 2
+  m_SortingOrder: -1
   m_Sprite: {fileID: -100144444, guid: f96284c5074882849b83db2fe0b3f101, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -12138,6 +12138,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8cfc44cf6a8aa84faa7d5d025623dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemyAttack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 974516319}
+        m_TargetAssemblyTypeName: AgentRender, Assembly-CSharp
+        m_MethodName: HitAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  damage: 1
   attackCoolTime: 1
 --- !u!114 &369593276
 MonoBehaviour:
@@ -15195,21 +15211,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isHit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 974516319}
-        m_TargetAssemblyTypeName: AgentRender, Assembly-CSharp
-        m_MethodName: HitAnimation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -15736,7 +15737,7 @@ GameObject:
   - component: {fileID: 811715081}
   - component: {fileID: 811715084}
   m_Layer: 0
-  m_Name: Door-3-End
+  m_Name: Door-Finish
   m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21144,6 +21145,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 8, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 49
+      m_TileSpriteIndex: 26
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 9, y: -3, z: 0}
     second:
       serializedVersion: 2
@@ -21909,16 +21920,6 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 1
       m_TileSpriteIndex: 83
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 13, y: 2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 114
-      m_TileSpriteIndex: 21
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -24384,7 +24385,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 3be616243d0c2ce498dd8aeec5b95ac8, type: 2}
   - m_RefCount: 5
     m_Data: {fileID: 11400000, guid: cc4d0172da9a624489d52cdeae0d1f82, type: 2}
-  - m_RefCount: 7
+  - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: ad05c033c1c198345baa57fa9a6c1502, type: 2}
   - m_RefCount: 17
     m_Data: {fileID: 11400000, guid: ff000a3ece7144f47a737df27db82f22, type: 2}
@@ -24514,7 +24515,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 9
+  - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: df886bb49e950ec4985c9e6470144aed, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -24573,7 +24574,7 @@ Tilemap:
     m_Data: {fileID: -113885993, guid: 55fdc168295e519409e1a2763456e432, type: 3}
   - m_RefCount: 8
     m_Data: {fileID: 1929833546, guid: 55fdc168295e519409e1a2763456e432, type: 3}
-  - m_RefCount: 9
+  - m_RefCount: 8
     m_Data: {fileID: 896330084, guid: 5ce4caa67cfd7464c980cf567c7b470d, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -2050995045, guid: 55fdc168295e519409e1a2763456e432, type: 3}
@@ -24583,7 +24584,7 @@ Tilemap:
     m_Data: {fileID: -2088327483, guid: 55fdc168295e519409e1a2763456e432, type: 3}
   - m_RefCount: 9
     m_Data: {fileID: -792969058, guid: 55fdc168295e519409e1a2763456e432, type: 3}
-  - m_RefCount: 7
+  - m_RefCount: 8
     m_Data: {fileID: 570095361, guid: d05eb5f08058c4641b71ad8c7ffed86b, type: 3}
   - m_RefCount: 7
     m_Data: {fileID: -1641501184, guid: d05eb5f08058c4641b71ad8c7ffed86b, type: 3}
@@ -25209,7 +25210,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307434036}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -25219,7 +25220,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -39.5, y: -0.3715}
+  m_AnchoredPosition: {x: -39.5, y: -0.37149048}
   m_SizeDelta: {x: 54.514, y: 42.4768}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1307434038
@@ -25358,6 +25359,7 @@ GameObject:
   - component: {fileID: 1455161096}
   - component: {fileID: 1455161099}
   - component: {fileID: 1455161100}
+  - component: {fileID: 1455161101}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -25426,7 +25428,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 22806709
   m_SortingLayer: 2
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: -1449110527, guid: bd2ac560d47d84846a86670039b0be3b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -25446,7 +25448,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455161095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.65, y: 2.7, z: 0}
+  m_LocalPosition: {x: 12.41, y: 2.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25463,7 +25465,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.4496417, y: -0.12989658}
@@ -25493,6 +25495,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cannonBallPrefab: {fileID: 7464036728436595001, guid: a5e7911b526f0fe4394645dd15f30f6c, type: 3}
   cannonType: 0
+--- !u!50 &1455161101
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455161095}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1477925236
 GameObject:
   m_ObjectHideFlags: 3
@@ -26195,6 +26218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4771d125ae6a44ebd69a7c5e5edbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heartIcons:
+  - {fileID: 1307434038}
+  - {fileID: 1945201604}
+  - {fileID: 643363717}
 --- !u!4 &1903257703
 Transform:
   m_ObjectHideFlags: 0

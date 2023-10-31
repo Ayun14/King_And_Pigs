@@ -10,6 +10,7 @@ public class TeleportManager : MonoBehaviour
     [SerializeField] private int camNum; // 몇 번째 카메라가 비춰야 하냐
 
     private float _teleportTime = 0.6f;
+    private string doorName = "Door-Finish";
 
     private bool _isDoorRange; // door 범위 안에 player가 있는지
     public bool isControl = true; // 플레이어 Input을 제어
@@ -44,6 +45,8 @@ public class TeleportManager : MonoBehaviour
 
         yield return new WaitForSeconds(_teleportTime);
 
+        IsStageEndDoor(); // 스테이지가 끝나는 문인지
+
         player.transform.position = endDoorPos.transform.position; // 텔레포트
 
         _animator.SetBool("Door", false);
@@ -54,6 +57,15 @@ public class TeleportManager : MonoBehaviour
 
         _endDoorAnimator.SetBool("Door", false);
         isControl = true;
+    }
+
+    private void IsStageEndDoor()
+    {
+        if (gameObject.name == doorName)
+        {
+            // 스코어와 맵으로 가는 버튼창
+            Debug.Log("다음 스테이지로");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
