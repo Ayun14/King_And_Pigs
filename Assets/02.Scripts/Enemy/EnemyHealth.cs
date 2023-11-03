@@ -61,7 +61,7 @@ public class EnemyHealth : MonoBehaviour
             _animator.SetTrigger("Die");
             hpBar.SetActive(false);
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.6f);
 
             _rigid.gravityScale = 0;
             boxCollider.enabled = false;

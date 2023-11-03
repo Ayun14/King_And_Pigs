@@ -33,6 +33,8 @@ public class EnemyAttack : MonoBehaviour
     {
         if (isAttack) return;
 
+        StartCoroutine(AttackRoutine());
+
         isAttack = true;
         isEnemyAttack?.Invoke();
 
