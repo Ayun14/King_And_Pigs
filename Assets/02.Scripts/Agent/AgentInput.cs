@@ -9,7 +9,6 @@ public class AgentInput : MonoBehaviour
 {
     public UnityEvent<float> isPlayerMovementInput;
     public UnityEvent isJumpInput;
-    public UnityEvent isDoorTeleportInput;
     public UnityEvent isAttackInput;
 
     [SerializeField] private LayerMask groundLayer; // 땅 레이어를 지정할 변수
@@ -61,7 +60,7 @@ public class AgentInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             isAttackInput?.Invoke();
-            CameraShake.Instance.CameraShaking(_impulseSource, 0.7f);
+            CameraShake.Instance.CameraShaking(_impulseSource, 0.2f);
         }
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b5eb3e0cf79377d49903102af132b5a3
+guid: 09240f6a01f755a47a6a8170d82146bb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Dead Out (24x8)_0
+      name: Attack (78x58)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 34
-        height: 16
+        width: 78
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c2d731ba69fe5440963237d2bc9fdd1
-      internalID: -1390227589
+      spriteID: cfa5d5458d6290d4c9e775adfd8ea868
+      internalID: 2072674919
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dead Out (24x8)_1
+      name: Attack (78x58)_1
       rect:
         serializedVersion: 2
-        x: 34
+        x: 78
         y: 0
-        width: 34
-        height: 16
+        width: 78
+        height: 58
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,8 +152,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fea85ff8417b5d74ba47ebb7ea38abe7
-      internalID: -39415474
+      spriteID: f7deb278906360046b23c5e10c255a4d
+      internalID: 832038132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack (78x58)_2
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 0
+        width: 78
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7a90698a9d259a4082ff5add60ebead
+      internalID: 1546296448
       vertices: []
       indices: 
       edges: []
@@ -169,8 +190,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Dead Out (24x8)_0: -1390227589
-      Dead Out (24x8)_1: -39415474
+      Attack (78x58)_0: 2072674919
+      Attack (78x58)_1: 832038132
+      Attack (78x58)_2: 1546296448
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

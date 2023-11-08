@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Box : MonoBehaviour, IInteraction
 {
-    [SerializeField] private GameObject[] itemPrefabs;
-
     private ExplosiveEffect _explosive;
     private Animator _animator;
 

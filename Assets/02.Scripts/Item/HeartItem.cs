@@ -15,7 +15,7 @@ public class HeartItem : MonoBehaviour, IItem
     {
         GameManager.Instance.RefillHeartIcon();
         _animator.Play("HeartItemHit");
-        Destroy(gameObject, 0.1f);
+        Destroy(gameObject, 0.15f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

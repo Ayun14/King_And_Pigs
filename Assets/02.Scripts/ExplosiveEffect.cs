@@ -17,7 +17,7 @@ public class ExplosiveEffect : MonoBehaviour
         }
 
         int rand = Random.Range(1, 50);
-        if (rand < 30)
+        if (rand < 5)
         {
             GameObject clone = Instantiate(itmePrefabs[0], transform.position, Quaternion.identity);
             IsExplosion(clone);

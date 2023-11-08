@@ -10,7 +10,7 @@ public class TeleportManager : MonoBehaviour
     [SerializeField] private GameObject gameClearPanel;
     [SerializeField] private int camNum; // 몇 번째 카메라가 비춰야 하냐
 
-    private float _teleportTime = 0.6f;
+    private float _teleportTime = 1.2f;
     private string doorName = "Door-Finish";
 
     private bool _isDoorRange; // door 범위 안에 player가 있는지
@@ -34,7 +34,6 @@ public class TeleportManager : MonoBehaviour
         if (_isDoorRange && Input.GetKeyDown(KeyCode.W))
         {
             StartCoroutine(DoorInMoveRoutine());
-            CinemachineSwitcher.Instance.SwitchProiority(camNum);
             Debug.Log(camNum);
         }
     }
@@ -46,29 +45,35 @@ public class TeleportManager : MonoBehaviour
         _playerAnimator.SetBool("Teleport", true);
         isControl = false; // 플레이어 움직임 제어
 
+        GameManager.Instance.FadeIn(1f);
         yield return new WaitForSeconds(_teleportTime);
 
-        IsStageEndDoor(); // 스테이지가 끝나는 문인지
+        if (IsStageEndDoor()) yield break;
+        CinemachineSwitcher.Instance.SwitchProiority(camNum);
+        yield return new WaitForSeconds(0.1f);
 
         player.transform.position = endDoorPos.transform.position; // 텔레포트
 
+        GameManager.Instance.FadeOut(1f);
         _animator.SetBool("Door", false);
         _endDoorAnimator.SetBool("Door", true);
         _playerAnimator.SetBool("Teleport", false);
 
-        yield return new WaitForSeconds(_teleportTime);
+        yield return new WaitForSeconds(0.8f);
 
         _endDoorAnimator.SetBool("Door", false);
         isControl = true;
     }
 
-    private void IsStageEndDoor()
+    private bool IsStageEndDoor()
     {
         if (gameObject.name == doorName)
         {
             gameClearPanel.SetActive(true);
             Debug.Log("다음 스테이지로");
+            return true;
         }
+        return false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

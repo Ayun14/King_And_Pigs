@@ -8,6 +8,8 @@ public class EnemyHealth : MonoBehaviour
 {
     public Action<Transform, float> isKnockBack;
 
+    [SerializeField] private GameObject deadMeasageBox;
+    [SerializeField] private LayerMask groundLayer; // 땅 레이어를 지정할 변수
     [SerializeField] private float knockBackForce = 30f;
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private GameObject hpBar;
@@ -18,6 +20,8 @@ public class EnemyHealth : MonoBehaviour
     public float CurrentHP => _currnetHP;
 
     public bool isDead = false;
+    private bool _isMoveStop = false;
+    private bool _isGrounded = false;
 
     private HPViewer _hpViewer;
     private Rigidbody2D _rigid;
@@ -29,6 +33,7 @@ public class EnemyHealth : MonoBehaviour
     {
         _currnetHP = maxHP;
 
+        deadMeasageBox.SetActive(false);
         boxCollider.enabled = true;
 
         _animator = GetComponent<Animator>();
@@ -55,18 +60,27 @@ public class EnemyHealth : MonoBehaviour
         {
             isDead = true;
 
-            CameraShake.Instance.CameraShaking(_impulseSource, 1.5f);
+            CameraShake.Instance.CameraShaking(_impulseSource, 1f);
 
             isKnockBack?.Invoke(targetPos, knockBackForce);
             _animator.SetTrigger("Die");
             hpBar.SetActive(false);
 
-            yield return new WaitForSeconds(0.6f);
+            while (!_isMoveStop)
+            {
+                _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1f, groundLayer);
 
-            _rigid.gravityScale = 0;
-            boxCollider.enabled = false;
+                if (_isGrounded)
+                {
+                    yield return new WaitForSeconds(0.5f);
+
+                    deadMeasageBox.SetActive(true);
+                    _rigid.gravityScale = 0;
+                    boxCollider.enabled = false;
+                    _isMoveStop = true;
+                }
+                yield return null;
+            }
         }
     }
-
-
 }

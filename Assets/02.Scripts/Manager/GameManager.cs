@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private Image fadePanel;
+
     private float _playerHP = 3;
     public float PlayerHP
     { 
@@ -84,5 +87,15 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.Log("플레이어 사망");
         }
+    }
+
+    public void FadeIn(float fadeTime)
+    {
+        fadePanel.rectTransform.DOAnchorPosX(-90, fadeTime);
+    }
+
+    public void FadeOut(float fadeTime)
+    {
+        fadePanel.rectTransform.DOAnchorPosX(2100, fadeTime);
     }
 }
