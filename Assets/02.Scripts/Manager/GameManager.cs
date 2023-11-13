@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
+    public UnityEvent isTakeDamages; 
+
     [SerializeField] private Image fadePanel;
 
     private float _playerHP = 3;
@@ -32,13 +35,12 @@ public class GameManager : Singleton<GameManager>
         ReductionHeartIcon();
         Debug.Log("플레이어 HP : " + _playerHP);
 
+        isTakeDamages?.Invoke(); // hit animation 실행하기
         DeadCheak();
     }
 
     public void ReductionHeartIcon() // heartIcon 감소 시킬 때
     {
-        if (_playerHP < 0) return;
-
         for (int i = 0; i < heartIcons.Length; i++)
         {
             if (i == _playerHP)

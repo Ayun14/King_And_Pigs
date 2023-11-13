@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PinkStarEnemy
+  m_Controller: {fileID: 9100000, guid: f4dfe7227cba0e94482635466dba7960, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 7fe74813f21ca5e47a0440227546f794, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1efb53aff8374574b87c25cf9cc26025, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: bb2da31cada480b4486353d782dc3602, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 32728e6ebc349624c9fd945e76b456bd, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 13b98368e577d7e488ee19489ff7ed2c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 966b32c733e978f42a8c5733101e56a3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: cda5c9890777014408959f2c83129575, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4cfc48bb751b4314e874bf12555a2eb7, type: 2}
