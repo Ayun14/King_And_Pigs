@@ -12,12 +12,13 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
     }
     private State state;
 
-    public float BossHP
-    {
-        get => _bossHP;
-        set => _bossHP = Mathf.Min(value, 30);
-    }
-    private float _bossHP = 30;
+    //public float BossHP
+    //{
+    //    get => _bossHP;
+    //    set => _bossHP = Mathf.Min(value, 30);
+    //}
+    private float _maxBossHP = 30;
+    private float _bossHP;
 
     [Header("Walk")]
     [SerializeField] private float moveSpeed;
@@ -38,24 +39,32 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
     [SerializeField] private float rushPower = 15;
 
     [Header("Clear")]
-    //[SerializeField] private GameObject hpBar;
-    //[SerializeField] private GameObject door;
+    [SerializeField] private GameObject hpBar;
+    [SerializeField] private GameObject hpBarFill;
+    [SerializeField] private GameObject door;
 
+    private bool _isDead;
     private bool isWalking = false;
+    private bool _isGrounded;
 
     private Vector3 _direction;
     private Rigidbody2D _rigid;
     private Animator _animator;
+    private BoxCollider2D _collider;
     private CinemachineImpulseSource _impuseSource;
 
     private void Start()
     {
-        //door.SetActive(false);
+        door.SetActive(false);
+        hpBar.SetActive(true);
         state = State.Idle; // 처음엔 Idle 상태
         _rigid = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _collider = GetComponent<BoxCollider2D>();
         _impuseSource = GetComponent<CinemachineImpulseSource>();
 
+        _bossHP = _maxBossHP;
+        HpUpdate(_bossHP / _maxBossHP);
         Thinking(); // 첫 패턴 생각
     }
 
@@ -71,6 +80,8 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
 
     private void Thinking() // 패턴 생각
     {
+        if (_isDead) return;
+
         int randState = Random.Range(1, 5); // Idle 빼고
         ChangeState((State)randState);
         Debug.Log((State)randState);
@@ -80,11 +91,13 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
 
     private IEnumerator Walk() // 랜덤 시간이 지나면 방향을 바꾸면서 걸어다님
     {
+        if (_isDead) yield break;
+
         yield return new WaitForSeconds(1f);
 
         isWalking = false;
         _animator.SetBool("Walk", true);
-        int directionChangeCnt = Random.Range(3, 5);
+        int directionChangeCnt = Random.Range(3, 6);
 
         while (!isWalking)
         {
@@ -93,12 +106,12 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
                 if (directionChangeCnt % 2 == 0)
                 {
                     _direction = Vector3.right;
-                    transform.localScale = new Vector2(-3, 3);
+                    transform.localScale = new Vector2(-2, 2);
                 }
                 else
                 {
                     _direction = Vector3.left;
-                    transform.localScale = new Vector2(3, 3);
+                    transform.localScale = new Vector2(2, 2);
                 }
 
                 yield return new WaitForSeconds(3f);
@@ -110,13 +123,19 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
 
         _direction = Vector3.zero;
         _animator.SetBool("Walk", false);
+
+        yield return new WaitForSeconds(2f);
         Thinking(); // 다른 패턴 생각
     }
 
     private IEnumerator Attack() // 일반 공격, 파티클 생성함
     {
+        if (_isDead) yield break;
+
         yield return new WaitForSeconds(1f);
         _animator.SetTrigger("Attack");
+
+        CameraShake.Instance.CameraShaking(_impuseSource, 0.2f);
 
         GameObject effect = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
         Destroy(effect, 0.5f);
@@ -127,6 +146,8 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
 
     private IEnumerator JumpAttack()
     {
+        if (_isDead) yield break;
+
         // 점프한뒤 내려와서 폭풍을 만드는데 그거에 닿으면 데미지를 입는
         yield return new WaitForSeconds(1f);
 
@@ -145,7 +166,7 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
             yield return null;
             Debug.Log(isGrounded);
         }
-        CameraShake.Instance.CameraShaking(_impuseSource, 1f); // 메인 가서 만지기
+        CameraShake.Instance.CameraShaking(_impuseSource, 0.5f); // 메인 가서 만지기
         _animator.SetBool("Jump", false);
 
         Instantiate(leftJumpAttackEffectPrefab, leftEffectSpawn.position, Quaternion.identity);
@@ -158,6 +179,8 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
 
     private IEnumerator RushAttack()
     {
+        if (_isDead) yield break;
+
         // 플레이어 있는 쪽으로 돌진
         int rushCnt = 2;
         while (rushCnt > 0)
@@ -178,6 +201,7 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
                 _animator.SetBool("Rush", true);
             }
 
+            CameraShake.Instance.CameraShaking(_impuseSource, 0.1f);
             yield return new WaitForSeconds(1.5f);
             _animator.SetBool("Rush", false);
             _rigid.velocity = Vector2.zero;
@@ -192,11 +216,15 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
     public void IsInteraction(Transform trm) // 플레이어에게 맞았을 때
     {
         _bossHP--;
+        HpUpdate(_bossHP / _maxBossHP);
 
         if (_bossHP <= 0)
         {
-            _animator.SetTrigger("Dead");
-            //door.SetActive(true);
+            StopAllCoroutines();
+            StartCoroutine(DeadRoutine());
+
+            Vector2 difference = (transform.position - transform.position).normalized * 2 * _rigid.mass;
+            _rigid.AddForce(difference, ForceMode2D.Impulse);
         }
         else
         {
@@ -204,10 +232,39 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
         }
     }
 
-    //public void HpUpdate(float normalizedScale)
-    //{
-    //    Vector3 scale = hpBar.transform.localScale;
-    //    scale.x = Mathf.Clamp(normalizedScale, 0, 1f);
-    //    hpBar.transform.localScale = scale;
-    //}
+    IEnumerator DeadRoutine()
+    {
+        while (!_isDead)
+        {
+            _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 3f, groundLayer);
+
+            if (_isGrounded)
+            {
+                _animator.SetTrigger("Dead");
+                yield return new WaitForSeconds(0.2f);
+
+                _rigid.gravityScale = 0;
+                _collider.enabled = false;
+                door.SetActive(true);
+                _isDead = true;
+            }
+            yield return null;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) // 닿으면 데미지 주기
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            GameManager.Instance.TakeDamage(1);
+        }
+    }
+
+    public void HpUpdate(float normalizedScale)
+    {
+        Debug.Log("HP 업데이트");
+        Vector3 scale = hpBarFill.transform.localScale;
+        scale.x = Mathf.Clamp(normalizedScale, 0, 1f);
+        hpBarFill.transform.localScale = scale;
+    }
 }

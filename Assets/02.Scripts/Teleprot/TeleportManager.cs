@@ -5,10 +5,17 @@ using UnityEngine;
 
 public class TeleportManager : MonoBehaviour
 {
+    private enum Door
+    {
+        None, BossDoor, BossStart
+    }
+
     [SerializeField] private GameObject endDoorPos;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject gameClearPanel;
     [SerializeField] private int camNum; // 몇 번째 카메라가 비춰야 하냐
+    [SerializeField] private Door door;
+    [SerializeField] private GameObject boss;
 
     private float _teleportTime = 1.2f;
     private string doorName = "Door-Finish";
@@ -23,6 +30,7 @@ public class TeleportManager : MonoBehaviour
     private void Start()
     {
         gameClearPanel.SetActive(false);
+        boss.SetActive(false);
 
         _animator = GetComponent<Animator>();
         _endDoorAnimator = endDoorPos.GetComponent<Animator>();
@@ -31,10 +39,11 @@ public class TeleportManager : MonoBehaviour
 
     private void Update()
     {
+        if (door == Door.BossStart) return;
+
         if (_isDoorRange && Input.GetKeyDown(KeyCode.W))
         {
             StartCoroutine(DoorInMoveRoutine());
-            Debug.Log(camNum);
         }
     }
 
@@ -49,6 +58,8 @@ public class TeleportManager : MonoBehaviour
         yield return new WaitForSeconds(_teleportTime);
 
         if (IsStageEndDoor()) yield break;
+        if (door == Door.BossDoor) boss.SetActive(true);
+
         CinemachineSwitcher.Instance.SwitchProiority(camNum);
         yield return new WaitForSeconds(0.1f);
 

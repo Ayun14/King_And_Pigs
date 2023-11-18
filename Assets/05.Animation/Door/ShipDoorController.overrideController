@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ShipDoorController
+  m_Controller: {fileID: 9100000, guid: d5c121b908b45034aa3a32dd500ddd51, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: dee25d473343ba24aa95680a4e445bbd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 569728088e68a8c4a8adce8ffe843e4e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f083cc2310e413d4cac7e01cd521bc8e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f0c4f12b5db00b94a9be5d8646f3748f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d164b602266642c4bb0032e236dad403, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1d874a216f7676d4ba8367970579f374, type: 2}

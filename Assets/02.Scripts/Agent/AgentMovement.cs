@@ -7,13 +7,20 @@ using UnityEngine.Events;
 public class AgentMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5;
+    [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float jumpForce = 10f; // 점프 강도를 조절할 변수
 
+    private bool isDashing = false;
+
+    private float _dashTime = 0.5f;
+    private float _dashCoolTime = 0.5f;
+    private float _defultSpeed;
     private Vector3 _velocity;
     private Rigidbody2D _rigid;
 
     private void Start()
     {
+        _defultSpeed = moveSpeed;
         _rigid = GetComponent<Rigidbody2D>();
     }
 
@@ -39,5 +46,22 @@ public class AgentMovement : MonoBehaviour
     public void JumpTo()
     {
         _rigid.velocity = new Vector2(_rigid.velocity.x, jumpForce);
+    }
+
+    public void Dash()
+    {
+        if (isDashing) return;
+
+        isDashing = true;
+        moveSpeed = dashSpeed;
+        StartCoroutine(DashRoutine());
+    }
+
+    IEnumerator DashRoutine()
+    {
+        yield return new WaitForSeconds(_dashTime);
+        moveSpeed = _defultSpeed;
+        yield return new WaitForSeconds(_dashCoolTime);
+        isDashing = false;
     }
 }

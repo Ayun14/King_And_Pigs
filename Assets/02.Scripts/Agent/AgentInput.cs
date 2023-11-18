@@ -10,6 +10,7 @@ public class AgentInput : MonoBehaviour
     public UnityEvent<float> isPlayerMovementInput;
     public UnityEvent isJumpInput;
     public UnityEvent isAttackInput;
+    public UnityEvent isDashInput;
 
     [SerializeField] private LayerMask groundLayer; // 땅 레이어를 지정할 변수
 
@@ -33,6 +34,7 @@ public class AgentInput : MonoBehaviour
 
         JumpInput();
         AttackInput();
+        DashInput();
     }
 
     private void MovementInput()
@@ -61,6 +63,14 @@ public class AgentInput : MonoBehaviour
         {
             isAttackInput?.Invoke();
             CameraShake.Instance.CameraShaking(_impulseSource, 0.2f);
+        }
+    }
+
+    private void DashInput()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            isDashInput?.Invoke();
         }
     }
 }

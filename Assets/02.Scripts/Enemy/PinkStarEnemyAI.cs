@@ -69,11 +69,13 @@ public class PinkStarEnemyAI : MonoBehaviour, IInteraction
             {
                 _rigid.AddForce(Vector2.right * rushPower, ForceMode2D.Impulse);
                 _animator.SetBool("Idle", true); // 공격 애니메이션 트루 한거임
+                transform.localScale = new Vector3(-1, 1, 1);
             }
             else if (dotProduct < 0) // 왼쪽
             {
                 _rigid.AddForce(Vector2.left * rushPower, ForceMode2D.Impulse);
                 _animator.SetBool("Idle", true); // 공격 애니메이션 트루 한거임
+                transform.localScale = new Vector3(1, 1, 1);
             }
 
             yield return null;
