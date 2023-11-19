@@ -12,12 +12,7 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
     }
     private State state;
 
-    //public float BossHP
-    //{
-    //    get => _bossHP;
-    //    set => _bossHP = Mathf.Min(value, 30);
-    //}
-    private float _maxBossHP = 30;
+    [SerializeField] private float _maxBossHP = 30;
     private float _bossHP;
 
     [Header("Walk")]
@@ -47,7 +42,9 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
     private bool isWalking = false;
     private bool _isGrounded;
 
+    private int _beforeRandState = 0;
     private Vector3 _direction;
+
     private Rigidbody2D _rigid;
     private Animator _animator;
     private BoxCollider2D _collider;
@@ -57,6 +54,7 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
     {
         door.SetActive(false);
         hpBar.SetActive(true);
+
         state = State.Idle; // 처음엔 Idle 상태
         _rigid = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
@@ -65,7 +63,8 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
 
         _bossHP = _maxBossHP;
         HpUpdate(_bossHP / _maxBossHP);
-        Thinking(); // 첫 패턴 생각
+
+        Invoke("Thinking", 3.5f);
     }
 
     private void ChangeState(State newState)
@@ -83,6 +82,15 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
         if (_isDead) return;
 
         int randState = Random.Range(1, 5); // Idle 빼고
+
+        if (randState == _beforeRandState)
+        {
+            Thinking();
+            return;
+        }
+
+        _beforeRandState = randState;
+
         ChangeState((State)randState);
         Debug.Log((State)randState);
 
@@ -223,7 +231,8 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
             StopAllCoroutines();
             StartCoroutine(DeadRoutine());
 
-            Vector2 difference = (transform.position - transform.position).normalized * 2 * _rigid.mass;
+            CameraShake.Instance.CameraShaking(_impuseSource, 0.2f);
+            Vector2 difference = (transform.position - transform.position).normalized * 50 * _rigid.mass;
             _rigid.AddForce(difference, ForceMode2D.Impulse);
         }
         else
@@ -262,7 +271,6 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
 
     public void HpUpdate(float normalizedScale)
     {
-        Debug.Log("HP 업데이트");
         Vector3 scale = hpBarFill.transform.localScale;
         scale.x = Mathf.Clamp(normalizedScale, 0, 1f);
         hpBarFill.transform.localScale = scale;

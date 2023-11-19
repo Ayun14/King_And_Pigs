@@ -7,13 +7,13 @@ using UnityEngine.Events;
 public class AgentMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5;
-    [SerializeField] private float dashSpeed = 10f;
+    [SerializeField] private float dashSpeed = 20f;
     [SerializeField] private float jumpForce = 10f; // 점프 강도를 조절할 변수
 
     private bool isDashing = false;
 
     private float _dashTime = 0.5f;
-    private float _dashCoolTime = 0.5f;
+    private float _dashCoolTime = 0.1f;
     private float _defultSpeed;
     private Vector3 _velocity;
     private Rigidbody2D _rigid;

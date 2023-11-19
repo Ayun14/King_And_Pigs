@@ -21,8 +21,7 @@ public class Knife : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("플레이어한테 knife가 데미지줌");
-            //GameManager.Instance.TakeDamage(1);
+            GameManager.Instance.TakeDamage(1);
         }
     }
 }

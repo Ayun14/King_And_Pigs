@@ -11,12 +11,8 @@ public class CaptainBoss : MonoBehaviour, IInteraction
     }
     private State state;
 
-    public float BossHP
-    {
-        get => _bossHP;
-        set => _bossHP = Mathf.Min(value, 30);
-    }
-    private float _bossHP = 30;
+    [SerializeField] private float _maxBossHP = 30;
+    private float _bossHP;
 
     [SerializeField] private Transform pos;
     [SerializeField] private LayerMask groundLayer;
@@ -37,11 +33,16 @@ public class CaptainBoss : MonoBehaviour, IInteraction
     [SerializeField] private GameObject knifePrefab;
     [SerializeField] private int knifesCnt = 3; // 생성할 Knife 개수
 
+    [Header("Clear")]
+    [SerializeField] private GameObject hpBar;
+    [SerializeField] private GameObject hpBarFill;
+    [SerializeField] private GameObject door;
+
     private bool _isDead;
-    private bool _isMoveStop;
     private bool _isGrounded;
     private bool _isWalking;
 
+    private int _beforeRandState = 0;
     private Vector3 _direction;
     private Vector2 _colliderSize = Vector2.zero;
 
@@ -52,12 +53,19 @@ public class CaptainBoss : MonoBehaviour, IInteraction
 
     private void Start()
     {
+        door.SetActive(false);
+        hpBar.SetActive(true);
+
         state = State.Idle; // 처음엔 Idle 상태
         _rigid = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _colliders = GetComponents<BoxCollider2D>();
         _impuseSource = GetComponent<CinemachineImpulseSource>();
 
-        Thinking();
+        _bossHP = _maxBossHP;
+        HpUpdate(_bossHP / _maxBossHP);
+
+        Invoke("Thinking", 3.5f);
     }
 
     private void Update()
@@ -75,6 +83,15 @@ public class CaptainBoss : MonoBehaviour, IInteraction
         if (_isDead) return;
 
         int randState = Random.Range(1, 4); // Idle 빼고
+
+        if (randState == _beforeRandState)
+        {
+            Thinking();
+            return;
+        }
+
+        _beforeRandState = randState;
+
         ChangeState((State)randState);
         Debug.Log((State)randState);
 
@@ -110,7 +127,7 @@ public class CaptainBoss : MonoBehaviour, IInteraction
                 _animator.SetBool("Attack", true);
                 _colliderSize = walkAttackColliderSize; // _colliderSize 변경
                 AttackJudgment(); // 공격 판정
-                //CameraShake.Instance.CameraShaking(_impuseSource, 0.2f); // 메인 가서 조절
+                CameraShake.Instance.CameraShaking(_impuseSource, 0.2f); // 메인 가서 조절
 
                 yield return new WaitForSeconds(0.5f);
                 _animator.SetBool("Attack", false);
@@ -152,7 +169,7 @@ public class CaptainBoss : MonoBehaviour, IInteraction
                 _animator.SetBool("Walk", true);
             }
 
-            //CameraShake.Instance.CameraShaking(_impuseSource, 0.1f);
+            CameraShake.Instance.CameraShaking(_impuseSource, 0.1f);
             yield return new WaitForSeconds(0.3f);
 
 
@@ -179,7 +196,7 @@ public class CaptainBoss : MonoBehaviour, IInteraction
 
     private void SeriesRushAttackChange(string animatorName, Vector2 colliderSize)
     {
-        //CameraShake.Instance.CameraShaking(_impuseSource, 0.2f);
+        CameraShake.Instance.CameraShaking(_impuseSource, 0.2f);
 
         _animator.SetBool(animatorName, true);
         _colliderSize = colliderSize; // _colliderSize 변경
@@ -216,6 +233,7 @@ public class CaptainBoss : MonoBehaviour, IInteraction
 
             _animator.SetTrigger("JumpAttack");
 
+            CameraShake.Instance.CameraShaking(_impuseSource, 0.1f);
             for (int i = 1; i <= knifesCnt; i++)
             {
                 float currentAngle = angleStep * i + startAngle + i;
@@ -224,6 +242,7 @@ public class CaptainBoss : MonoBehaviour, IInteraction
             }
             yield return new WaitForSeconds(0.5f);
 
+            CameraShake.Instance.CameraShaking(_impuseSource, 0.1f);
             for (int i = 1; i <= knifesCnt; i++)
             {
                 float currentAngle = angleStep * i + startAngle;
@@ -258,8 +277,7 @@ public class CaptainBoss : MonoBehaviour, IInteraction
         {
             if (collider.CompareTag("Player"))
             {
-                Debug.Log("플레이어 체력 감소");
-                //GameManager.Instance.TakeDamage(1);
+                GameManager.Instance.TakeDamage(1);
             }
         }
     }
@@ -273,15 +291,12 @@ public class CaptainBoss : MonoBehaviour, IInteraction
     public void IsInteraction(Transform trm)
     {
         _bossHP--;
+        HpUpdate(_bossHP / _maxBossHP);
 
         if (_bossHP <= 0)
         {
-            _animator.SetTrigger("Dead");
+            StopAllCoroutines();
             StartCoroutine(DeadRoutine());
-            //door.SetActive(true);
-
-            Vector2 difference = (transform.position - transform.position).normalized * 2 * _rigid.mass;
-            _rigid.AddForce(difference, ForceMode2D.Impulse);
         }
         else
         {
@@ -291,20 +306,29 @@ public class CaptainBoss : MonoBehaviour, IInteraction
 
     IEnumerator DeadRoutine()
     {
-        while (!_isMoveStop)
+        while (!_isDead)
         {
-            _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1f, groundLayer);
+            _isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 3f, groundLayer);
 
             if (_isGrounded)
             {
+                _animator.SetTrigger("Dead");
+
+                CameraShake.Instance.CameraShaking(_impuseSource, 0.2f);
+                Vector2 difference = (transform.position - transform.position).normalized * 50 * _rigid.mass;
+                _rigid.AddForce(difference, ForceMode2D.Impulse);
+
                 yield return new WaitForSeconds(0.2f);
 
                 _rigid.gravityScale = 0;
+
                 foreach (var item in _colliders)
                 {
                     item.enabled = false;
                 }
-                _isMoveStop = true;
+
+                door.SetActive(true);
+                _isDead = true;
             }
             yield return null;
         }
@@ -314,15 +338,14 @@ public class CaptainBoss : MonoBehaviour, IInteraction
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("플레이어 체력 감소");
-            //GameManager.Instance.TakeDamage(1);
+            GameManager.Instance.TakeDamage(1);
         }
     }
 
-    //public void HpUpdate(float normalizedScale) 나중에 HP바 만들고 나서 적용하기
-    //{
-    //    Vector3 scale = hpBar.transform.localScale;
-    //    scale.x = Mathf.Clamp(normalizedScale, 0, 1f);
-    //    hpBar.transform.localScale = scale;
-    //}
+    public void HpUpdate(float normalizedScale)
+    {
+        Vector3 scale = hpBarFill.transform.localScale;
+        scale.x = Mathf.Clamp(normalizedScale, 0, 1f);
+        hpBarFill.transform.localScale = scale;
+    }
 }

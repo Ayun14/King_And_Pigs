@@ -49,7 +49,6 @@ public class TeleportManager : MonoBehaviour
 
     IEnumerator DoorInMoveRoutine()
     {
-        Debug.Log("코루틴 시작");
         _animator.SetBool("Door", true);
         _playerAnimator.SetBool("Teleport", true);
         isControl = false; // 플레이어 움직임 제어
@@ -91,7 +90,6 @@ public class TeleportManager : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Enter");
             _isDoorRange = true;
         }
     }
@@ -100,7 +98,6 @@ public class TeleportManager : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Exit");
             _isDoorRange = false;
         }
     }
