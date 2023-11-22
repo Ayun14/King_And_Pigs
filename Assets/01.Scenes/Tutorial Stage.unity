@@ -15283,6 +15283,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 369069852}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 2
   door: 0
   boss: {fileID: 1179157801}
@@ -15611,6 +15612,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 471835715}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 4
   door: 0
   boss: {fileID: 1179157801}
@@ -15801,6 +15803,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 468523684}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 4
   door: 0
   boss: {fileID: 1179157801}
@@ -16320,6 +16323,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 140231719}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 4
   door: 0
   boss: {fileID: 1179157801}
@@ -16959,6 +16963,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 2082938702}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 2
   door: 0
   boss: {fileID: 1179157801}
@@ -17013,6 +17018,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 254642797}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 3
   door: 0
   boss: {fileID: 1179157801}
@@ -17166,6 +17172,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 181454494}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 1
   door: 0
   boss: {fileID: 1179157801}
@@ -20400,6 +20407,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 1268497195}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 3
   door: 0
   boss: {fileID: 1179157801}
@@ -21272,6 +21280,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 811715078}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 3
   door: 0
   boss: {fileID: 1179157801}
@@ -33570,6 +33579,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 614923556}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 3
   door: 0
   boss: {fileID: 1179157801}
@@ -34590,10 +34600,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -34610,7 +34620,7 @@ Canvas:
   m_GameObject: {fileID: 1530848956}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -35185,6 +35195,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 1852589613}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 1
   door: 0
   boss: {fileID: 1179157801}
@@ -36270,6 +36281,7 @@ MonoBehaviour:
   endDoorPos: {fileID: 437621968}
   player: {fileID: 600555368}
   gameClearPanel: {fileID: 1220080030}
+  fadePanel: {fileID: 1220080032}
   camNum: 2
   door: 0
   boss: {fileID: 1179157801}

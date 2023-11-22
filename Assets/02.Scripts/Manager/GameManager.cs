@@ -27,6 +27,9 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         DontDestroyOnLoad(this);
+
+        Fade.Instance.FadeIn(fadePanel, 0.1f);
+        Fade.Instance.FadeOut(fadePanel, 1.5f); // 시작할 때 FadeOut
     }
 
     public void TakeDamage(float damage)
@@ -89,15 +92,5 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.Log("플레이어 사망");
         }
-    }
-
-    public void FadeIn(float fadeTime)
-    {
-        fadePanel.rectTransform.DOAnchorPosX(-90, fadeTime);
-    }
-
-    public void FadeOut(float fadeTime)
-    {
-        fadePanel.rectTransform.DOAnchorPosX(2100, fadeTime);
     }
 }

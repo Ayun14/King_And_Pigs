@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TeleportManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class TeleportManager : MonoBehaviour
     [SerializeField] private GameObject endDoorPos;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject gameClearPanel;
+    [SerializeField] private Image fadePanel;
     [SerializeField] private int camNum; // 몇 번째 카메라가 비춰야 하냐
     [SerializeField] private Door door;
     [SerializeField] private GameObject boss;
@@ -53,7 +55,7 @@ public class TeleportManager : MonoBehaviour
         _playerAnimator.SetBool("Teleport", true);
         isControl = false; // 플레이어 움직임 제어
 
-        GameManager.Instance.FadeIn(1f);
+        Fade.Instance.FadeIn(fadePanel, 1f);
         yield return new WaitForSeconds(_teleportTime);
 
         if (IsStageEndDoor()) yield break;
@@ -64,7 +66,7 @@ public class TeleportManager : MonoBehaviour
 
         player.transform.position = endDoorPos.transform.position; // 텔레포트
 
-        GameManager.Instance.FadeOut(1f);
+        Fade.Instance.FadeOut(fadePanel, 1f);
         _animator.SetBool("Door", false);
         _endDoorAnimator.SetBool("Door", true);
         _playerAnimator.SetBool("Teleport", false);

@@ -11,7 +11,7 @@ public class CaptainBoss : MonoBehaviour, IInteraction
     }
     private State state;
 
-    [SerializeField] private float _maxBossHP = 30;
+    [SerializeField] private float _maxBossHP = 50;
     private float _bossHP;
 
     [SerializeField] private Transform pos;

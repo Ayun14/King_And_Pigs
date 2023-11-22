@@ -7,6 +7,7 @@ public class ExplosiveEffect : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private GameObject[] itmePrefabs;
     [SerializeField] private float force = 30f;
+    [SerializeField] private int percentage = 10; // 그 아이템이 나올 퍼센테이지
 
     public void Explosion()
     {
@@ -16,8 +17,8 @@ public class ExplosiveEffect : MonoBehaviour
             IsExplosion(clone);
         }
 
-        int rand = Random.Range(1, 50);
-        if (rand < 5)
+        int rand = Random.Range(1, 100);
+        if (rand < percentage)
         {
             GameObject clone = Instantiate(itmePrefabs[0], transform.position, Quaternion.identity);
             IsExplosion(clone);

@@ -28,7 +28,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         if (_intance == null)
         {
             _intance = this as T;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
