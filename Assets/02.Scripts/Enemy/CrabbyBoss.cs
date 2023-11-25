@@ -142,9 +142,9 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
 
         yield return new WaitForSeconds(1f);
         _animator.SetTrigger("Attack");
+        AudioManager.Instance.PlaySFX(AudioManager.Sfx.CrabbyAttack);
 
-        CameraShake.Instance.CameraShaking(_impuseSource, 0.2f);
-
+        yield return new WaitForSeconds(0.3f);
         GameObject effect = Instantiate(attackEffectPrefab, transform.position, Quaternion.identity);
         Destroy(effect, 0.5f);
 
@@ -169,13 +169,11 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
         bool isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 3f, groundLayer);
         while (!isGrounded)
         {
-            Debug.DrawRay(transform.position, Vector2.down * 3f, Color.blue);
             isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 3f, groundLayer);
             yield return null;
-            Debug.Log(isGrounded);
         }
-        CameraShake.Instance.CameraShaking(_impuseSource, 0.5f); // 메인 가서 만지기
         _animator.SetBool("Jump", false);
+        AudioManager.Instance.PlaySFX(AudioManager.Sfx.BossAttack);
 
         Instantiate(leftJumpAttackEffectPrefab, leftEffectSpawn.position, Quaternion.identity);
         Instantiate(rightJumpAttackEffectPrefab, rightEffectSpawn.position, Quaternion.identity);
@@ -209,7 +207,6 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
                 _animator.SetBool("Rush", true);
             }
 
-            CameraShake.Instance.CameraShaking(_impuseSource, 0.1f);
             yield return new WaitForSeconds(1.5f);
             _animator.SetBool("Rush", false);
             _rigid.velocity = Vector2.zero;
@@ -219,6 +216,11 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
 
         yield return new WaitForSeconds(2f);
         Thinking();
+    }
+
+    public void CameraShakeAniamtionEvent()
+    {
+        CameraShake.Instance.CameraShaking(_impuseSource, 0.2f);
     }
 
     public void IsInteraction(Transform trm) // 플레이어에게 맞았을 때
@@ -251,6 +253,11 @@ public class CrabbyBoss : MonoBehaviour, IInteraction
             {
                 _animator.SetTrigger("Dead");
                 yield return new WaitForSeconds(0.2f);
+
+                _direction = Vector3.zero;
+                _rigid.velocity = Vector3.zero;
+
+                GameManager.Instance.DoSlowMotion();
 
                 _rigid.gravityScale = 0;
                 _collider.enabled = false;

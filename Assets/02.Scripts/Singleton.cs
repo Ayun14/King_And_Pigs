@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,13 +26,20 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
-        if (_intance == null)
+        try
         {
-            _intance = this as T;
+            if (_intance == null)
+            {
+                _intance = this as T;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-        else
+        catch (Exception e)
         {
-            Destroy(gameObject);
+            Debug.LogError($"An exception occurred: {e.Message}");
         }
     }
 }

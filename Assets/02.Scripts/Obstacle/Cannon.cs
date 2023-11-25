@@ -12,6 +12,7 @@ public class Cannon : MonoBehaviour, IInteraction
     }
 
     [SerializeField] private GameObject cannonBallPrefab;
+    [SerializeField] private Transform ballSpawnPos;
     public CannonType cannonType;
 
     private float _delayTime = 3f;
@@ -44,7 +45,8 @@ public class Cannon : MonoBehaviour, IInteraction
         if (currentTime > _delayTime)
         {
             _animator.SetTrigger("Shoot");
-            Instantiate(cannonBallPrefab, transform.position, Quaternion.identity, transform);
+            Instantiate(cannonBallPrefab, ballSpawnPos.position, Quaternion.identity, transform);
+            AudioManager.Instance.PlaySFX(AudioManager.Sfx.Cannon);
             currentTime = 0;
         }
     }

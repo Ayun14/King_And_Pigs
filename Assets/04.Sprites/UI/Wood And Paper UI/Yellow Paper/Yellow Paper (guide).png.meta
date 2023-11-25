@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -117,13 +117,265 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Attack (78x58)_0
+      name: Yellow Paper (guide)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 91
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81d8e82f0dc352a499300811f6ae4e41
+      internalID: -1118999054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_1
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 91
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0098fd8465a1a64a94584943ee37193
+      internalID: -782661618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_2
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 91
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd3c58d30005e2841b956008847035a7
+      internalID: -1733726452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 91
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9a570d26505689468b81e26e695de2f
+      internalID: 167247626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 57
+        width: 19
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4515e4afdb641c242af5e620c7c7e8a1
+      internalID: 1727509799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_5
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 57
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25a23a1bd3b5b4e4ca06abe637f5acaa
+      internalID: 1617093800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_6
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 57
+        width: 19
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14260fc3543f6aa469ee382fd79d0909
+      internalID: -695440101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 57
+        width: 14
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cadde711edf6b5409a5849a7ca1f919
+      internalID: -2137487920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 38
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 413baa3d5afd72742b1f24d460e66eec
+      internalID: 1245220117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_9
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 38
+        width: 32
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 129362fc3f685844d833e180acce6eb1
+      internalID: 129904389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_10
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 38
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01b1d4d188a10e340882800e41435db7
+      internalID: -1724460660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_11
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 38
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9600d1b35d0cce94ebc8882e0c038ee3
+      internalID: -1557130138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_12
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 78
-        height: 58
+        width: 19
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +383,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cfa5d5458d6290d4c9e775adfd8ea868
-      internalID: 2072674919
+      spriteID: 339d4e464945c87418c9780819971fff
+      internalID: 415700479
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack (78x58)_1
+      name: Yellow Paper (guide)_13
       rect:
         serializedVersion: 2
-        x: 78
+        x: 21
         y: 0
-        width: 78
-        height: 58
+        width: 32
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +404,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7deb278906360046b23c5e10c255a4d
-      internalID: 832038132
+      spriteID: e4aa2e865f01f67498c5c5d1ddf5808f
+      internalID: 592316043
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack (78x58)_2
+      name: Yellow Paper (guide)_14
       rect:
         serializedVersion: 2
-        x: 156
+        x: 55
         y: 0
-        width: 78
-        height: 58
+        width: 19
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,8 +425,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7a90698a9d259a4082ff5add60ebead
-      internalID: 1546296448
+      spriteID: 53baf4eda7f2aff49b5674710c1efbdc
+      internalID: 1411809726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yellow Paper (guide)_15
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28d6d0deb2fa6af41a921c18c1e714b1
+      internalID: 1755861296
       vertices: []
       indices: 
       edges: []
@@ -190,9 +463,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Attack (78x58)_0: 2072674919
-      Attack (78x58)_1: 832038132
-      Attack (78x58)_2: 1546296448
+      Yellow Paper (guide)_0: -1118999054
+      Yellow Paper (guide)_1: -782661618
+      Yellow Paper (guide)_10: -1724460660
+      Yellow Paper (guide)_11: -1557130138
+      Yellow Paper (guide)_12: 415700479
+      Yellow Paper (guide)_13: 592316043
+      Yellow Paper (guide)_14: 1411809726
+      Yellow Paper (guide)_15: 1755861296
+      Yellow Paper (guide)_2: -1733726452
+      Yellow Paper (guide)_3: 167247626
+      Yellow Paper (guide)_4: 1727509799
+      Yellow Paper (guide)_5: 1617093800
+      Yellow Paper (guide)_6: -695440101
+      Yellow Paper (guide)_7: -2137487920
+      Yellow Paper (guide)_8: 1245220117
+      Yellow Paper (guide)_9: 129904389
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -16,18 +16,27 @@ public class AgentInput : MonoBehaviour
 
     private bool isGrounded = true; // 캐릭터가 땅에 있는지 여부를 확인할 변수
 
+    private Rigidbody2D _rigid;
+    private AgentRender agentRender;
     private TeleportManager _teleportManager;
-
     private CinemachineImpulseSource _impulseSource;
 
     private void Start()
     {
+        _rigid = GetComponent<Rigidbody2D>();
+        agentRender = GetComponentInChildren<AgentRender>();
         _teleportManager = GameObject.FindGameObjectWithTag("Door").GetComponent<TeleportManager>();
         _impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     private void Update()
     {
+        if (agentRender._isDead)
+        {
+            isPlayerMovementInput?.Invoke(0);
+            return;
+        }
+
         MovementInput();
 
         if (!_teleportManager.isControl) return;
@@ -54,6 +63,7 @@ public class AgentInput : MonoBehaviour
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             isJumpInput?.Invoke();
+            AudioManager.Instance.PlaySFX(AudioManager.Sfx.PlayerJump);
         }
     }
 
@@ -63,6 +73,7 @@ public class AgentInput : MonoBehaviour
         {
             isAttackInput?.Invoke();
             CameraShake.Instance.CameraShaking(_impulseSource, 0.2f);
+            AudioManager.Instance.PlaySFX(AudioManager.Sfx.PlayerAttack);
         }
     }
 

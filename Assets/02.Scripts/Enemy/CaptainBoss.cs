@@ -126,6 +126,9 @@ public class CaptainBoss : MonoBehaviour, IInteraction
                 _direction = Vector3.zero; // 잠깐 멈추고
                 _animator.SetBool("Attack", true);
                 _colliderSize = walkAttackColliderSize; // _colliderSize 변경
+
+                AudioManager.Instance.PlaySFX(AudioManager.Sfx.CaptainAttack);
+
                 AttackJudgment(); // 공격 판정
                 CameraShake.Instance.CameraShaking(_impuseSource, 0.2f); // 메인 가서 조절
 
@@ -198,6 +201,9 @@ public class CaptainBoss : MonoBehaviour, IInteraction
     {
         CameraShake.Instance.CameraShaking(_impuseSource, 0.2f);
 
+        float randPitch = Random.Range(0f, 1f);
+        AudioManager.Instance.PlaySFX(AudioManager.Sfx.CaptainAttack, randPitch);
+
         _animator.SetBool(animatorName, true);
         _colliderSize = colliderSize; // _colliderSize 변경
         AttackJudgment();
@@ -239,6 +245,9 @@ public class CaptainBoss : MonoBehaviour, IInteraction
                 float currentAngle = angleStep * i + startAngle + i;
 
                 Instantiate(knifePrefab, transform.position, Quaternion.Euler(0, 0, currentAngle));
+
+                float randPitch = Random.Range(0f, 1f);
+                AudioManager.Instance.PlaySFX(AudioManager.Sfx.CaptainAttack, randPitch);
             }
             yield return new WaitForSeconds(0.5f);
 
@@ -248,6 +257,9 @@ public class CaptainBoss : MonoBehaviour, IInteraction
                 float currentAngle = angleStep * i + startAngle;
 
                 Instantiate(knifePrefab, transform.position, Quaternion.Euler(0, 0, currentAngle));
+
+                float randPitch = Random.Range(0f, 1f);
+                AudioManager.Instance.PlaySFX(AudioManager.Sfx.CaptainAttack, randPitch);
             }
 
             yield return null;
@@ -296,6 +308,7 @@ public class CaptainBoss : MonoBehaviour, IInteraction
         if (_bossHP <= 0)
         {
             StopAllCoroutines();
+
             StartCoroutine(DeadRoutine());
         }
         else
@@ -318,6 +331,8 @@ public class CaptainBoss : MonoBehaviour, IInteraction
                 Vector2 difference = (transform.position - transform.position).normalized * 50 * _rigid.mass;
                 _rigid.AddForce(difference, ForceMode2D.Impulse);
 
+                GameManager.Instance.DoSlowMotion();
+
                 yield return new WaitForSeconds(0.2f);
 
                 _rigid.gravityScale = 0;
@@ -326,6 +341,9 @@ public class CaptainBoss : MonoBehaviour, IInteraction
                 {
                     item.enabled = false;
                 }
+
+                _rigid.velocity = Vector2.zero;
+                _direction = Vector2.zero;
 
                 door.SetActive(true);
                 _isDead = true;

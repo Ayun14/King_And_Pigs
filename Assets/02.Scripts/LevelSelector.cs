@@ -1,9 +1,9 @@
+using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelSelector : MonoBehaviour
 {
@@ -15,8 +15,11 @@ public class LevelSelector : MonoBehaviour
 
     private void Awake()
     {
-        Fade.Instance.FadeIn(fadePanel, 0.1f);
-        Fade.Instance.FadeOut(fadePanel, _fadeTime);
+        if (fadePanel != null)
+        {
+            fadePanel.rectTransform.DOAnchorPosX(-90, 0.1f);
+            fadePanel.rectTransform.DOAnchorPosX(2100, 1f);
+        }
     }
 
     private void Start()
@@ -31,8 +34,31 @@ public class LevelSelector : MonoBehaviour
 
     private IEnumerator OpenSceneRoutine(float fadeTime)
     {
-        Fade.Instance.FadeIn(fadePanel, fadeTime);
+        AudioManager.Instance.PlaySFX(AudioManager.Sfx.UIClick);
+
+        fadePanel.rectTransform.DOAnchorPosX(-90, fadeTime);
         yield return new WaitForSeconds(fadeTime);
+
+        switch (stageName)
+        {
+            case "Tutorial Stage":
+                AudioManager.Instance.PlayBGM(AudioManager.BGM.Stage1);
+                break;
+            case "Stage 1":
+                AudioManager.Instance.PlayBGM(AudioManager.BGM.Stage1);
+                break;
+            case "Stage 2":
+                AudioManager.Instance.PlayBGM(AudioManager.BGM.Stage2);
+                break;
+            case "Stage 3":
+                AudioManager.Instance.PlayBGM(AudioManager.BGM.Stage3);
+                break;
+        }
         SceneManager.LoadScene(stageName);
+    }
+
+    public void ButtonClickSound()
+    {
+        AudioManager.Instance.PlaySFX(AudioManager.Sfx.UIClick);
     }
 }

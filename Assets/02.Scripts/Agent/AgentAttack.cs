@@ -40,7 +40,10 @@ public class AgentAttack : MonoBehaviour
 
     private void OnDrawGizmos() // 판정 박스 그리기
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(pos.position, colliderSize);
+        if (pos != null && colliderSize != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(pos.position, colliderSize);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class TeleportManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class TeleportManager : MonoBehaviour
 
     [SerializeField] private GameObject endDoorPos;
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject gameClearPanel;
+    [SerializeField] private Image gameClearPanel;
     [SerializeField] private Image fadePanel;
     [SerializeField] private int camNum; // 몇 번째 카메라가 비춰야 하냐
     [SerializeField] private Door door;
@@ -31,7 +32,6 @@ public class TeleportManager : MonoBehaviour
 
     private void Start()
     {
-        gameClearPanel.SetActive(false);
         boss.SetActive(false);
 
         _animator = GetComponent<Animator>();
@@ -41,7 +41,11 @@ public class TeleportManager : MonoBehaviour
 
     private void Update()
     {
-        if (door == Door.BossStart) return;
+        if (door == Door.BossStart)
+        {
+            AudioManager.Instance.PlayBGM(AudioManager.BGM.Boss);
+            return;
+        }
 
         if (_isDoorRange && Input.GetKeyDown(KeyCode.W))
         {
@@ -55,7 +59,7 @@ public class TeleportManager : MonoBehaviour
         _playerAnimator.SetBool("Teleport", true);
         isControl = false; // 플레이어 움직임 제어
 
-        Fade.Instance.FadeIn(fadePanel, 1f);
+        GameManager.Instance.FadeIn(1f);
         yield return new WaitForSeconds(_teleportTime);
 
         if (IsStageEndDoor()) yield break;
@@ -66,7 +70,7 @@ public class TeleportManager : MonoBehaviour
 
         player.transform.position = endDoorPos.transform.position; // 텔레포트
 
-        Fade.Instance.FadeOut(fadePanel, 1f);
+        GameManager.Instance.FadeOut(1f);
         _animator.SetBool("Door", false);
         _endDoorAnimator.SetBool("Door", true);
         _playerAnimator.SetBool("Teleport", false);
@@ -81,8 +85,8 @@ public class TeleportManager : MonoBehaviour
     {
         if (gameObject.name == doorName)
         {
-            gameClearPanel.SetActive(true);
-            Debug.Log("다음 스테이지로");
+            gameClearPanel.rectTransform.DOAnchorPosY(0, 1);
+            AudioManager.Instance.PlaySFX(AudioManager.Sfx.GameClear);
             return true;
         }
         return false;

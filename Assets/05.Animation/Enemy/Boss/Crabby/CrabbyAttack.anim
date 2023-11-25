@@ -20,18 +20,24 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
+      value: {fileID: 21300000, guid: 7bf5878af02970d488e3ce98c751e40c, type: 3}
+    - time: 0.1
+      value: {fileID: 21300000, guid: e9761caddb7b263459c584ddafd0ca2c, type: 3}
+    - time: 0.2
+      value: {fileID: 21300000, guid: f84c165d20e3a17429acf2f321ef11d9, type: 3}
+    - time: 0.4
       value: {fileID: 21300000, guid: 0af0cc13955da7241ac7bfd12c982ce6, type: 3}
-    - time: 0.125
+    - time: 0.5
       value: {fileID: 21300000, guid: 837f7f9be1db21b43b69ae7018f662c9, type: 3}
-    - time: 0.25
+    - time: 0.6
       value: {fileID: 21300000, guid: 79e97816b0e78a34cacaf9be54c33182, type: 3}
-    - time: 0.375
+    - time: 0.7
       value: {fileID: 21300000, guid: c0dff71e50661d542a1de0708c9139bf, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 8
+  m_SampleRate: 10
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -46,6 +52,9 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
+    - {fileID: 21300000, guid: 7bf5878af02970d488e3ce98c751e40c, type: 3}
+    - {fileID: 21300000, guid: e9761caddb7b263459c584ddafd0ca2c, type: 3}
+    - {fileID: 21300000, guid: f84c165d20e3a17429acf2f321ef11d9, type: 3}
     - {fileID: 21300000, guid: 0af0cc13955da7241ac7bfd12c982ce6, type: 3}
     - {fileID: 21300000, guid: 837f7f9be1db21b43b69ae7018f662c9, type: 3}
     - {fileID: 21300000, guid: 79e97816b0e78a34cacaf9be54c33182, type: 3}
@@ -55,7 +64,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5
+    m_StopTime: 0.8
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -74,4 +83,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.4
+    functionName: CameraShakeAniamtionEvent
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

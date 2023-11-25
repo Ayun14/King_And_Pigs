@@ -85,6 +85,11 @@ public class EnemyAI : MonoBehaviour
 
             if (attackThePlayer) return; // 공격중이면 return
 
+            //if (Vector2.Distance(points[nextID].position, points[nextID + 1].position) <= 0.01f)
+            //{
+            //    _animator.SetBool("Idle", true);
+            //    return;
+            //}
 
             if (!targetInDistance)
             {

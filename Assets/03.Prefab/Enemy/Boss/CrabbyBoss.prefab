@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 6205814633971991790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -4.5, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6205814634360674288}
@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4079b5a933cfe8b46b8ec781e72c23ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxBossHP: 30
   moveSpeed: 5
   attackEffectPrefab: {fileID: 3830112776716613098, guid: ef441be1a76034f40b1223b297a54b34, type: 3}
   jumpPower: 80
@@ -183,6 +184,9 @@ MonoBehaviour:
   rightEffectSpawn: {fileID: 6205814634450966536}
   player: {fileID: 0}
   rushPower: 100
+  hpBar: {fileID: 0}
+  hpBarFill: {fileID: 0}
+  door: {fileID: 0}
 --- !u!114 &6205814633971991781
 MonoBehaviour:
   m_ObjectHideFlags: 0

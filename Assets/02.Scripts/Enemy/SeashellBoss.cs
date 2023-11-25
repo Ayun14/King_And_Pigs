@@ -130,6 +130,7 @@ public class SeashellBoss : MonoBehaviour, IInteraction
     public void JumpBiteAttackAnimationEvent() // 공격 하는 애니메이션하는 순간 add force넣기
     {
         _rigid.AddForce(_forecDirection * Mathf.PI * 4, ForceMode2D.Impulse);
+        AudioManager.Instance.PlaySFX(AudioManager.Sfx.BossAttack);
     }
 
     IEnumerator Fire()
@@ -208,6 +209,7 @@ public class SeashellBoss : MonoBehaviour, IInteraction
         else // 오른쪽으로 쏘기
             _pearlEuler = 180;
         Instantiate(pearlPrefab, pearlSpawnPos.position, Quaternion.Euler(new Vector3(0, 0, _pearlEuler)));
+        AudioManager.Instance.PlaySFX(AudioManager.Sfx.SeaShellAttack);
     }
 
     IEnumerator OpenFire()
@@ -220,6 +222,7 @@ public class SeashellBoss : MonoBehaviour, IInteraction
         {
             int angle = Random.Range(0, 180);
             Instantiate(pearlPrefab, transform.position, Quaternion.Euler(new Vector3(0, 0, angle)));
+            AudioManager.Instance.PlaySFX(AudioManager.Sfx.SeaShellAttack);
             yield return new WaitForSeconds(0.2f);
         }
 
@@ -263,6 +266,8 @@ public class SeashellBoss : MonoBehaviour, IInteraction
 
                 CameraShake.Instance.CameraShaking(_impuseSource, 0.2f);
                 _deadEffect.Explosion(); // 조개 조각 떨구기 & 아이템
+
+                GameManager.Instance.DoSlowMotion();
 
                 door.SetActive(true);
                 _isDead = true;

@@ -54,6 +54,7 @@ public class AgentMovement : MonoBehaviour
 
         isDashing = true;
         moveSpeed = dashSpeed;
+        AudioManager.Instance.PlaySFX(AudioManager.Sfx.PlayerDash);
         StartCoroutine(DashRoutine());
     }
 

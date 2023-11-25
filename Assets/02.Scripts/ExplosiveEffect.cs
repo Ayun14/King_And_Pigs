@@ -23,11 +23,6 @@ public class ExplosiveEffect : MonoBehaviour
             GameObject clone = Instantiate(itmePrefabs[0], transform.position, Quaternion.identity);
             IsExplosion(clone);
         }
-        //else if (rand < 10)
-        //{
-        //    GameObject clone = Instantiate(itmePrefabs[1], transform.position, Quaternion.identity);
-        //    IsExplosion(clone);
-        //}
     }
 
     private void IsExplosion(GameObject clone)

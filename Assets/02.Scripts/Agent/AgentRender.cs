@@ -6,6 +6,8 @@ public class AgentRender : MonoBehaviour
 {
     [SerializeField] private GameObject player;
 
+    public bool _isDead;
+
     protected SpriteRenderer _spriteRenderer;
     protected Animator _animator;
 
@@ -34,6 +36,13 @@ public class AgentRender : MonoBehaviour
     public void HitAnimation()
     {
         _animator.Play("Hit");
+        AudioManager.Instance.PlaySFX(AudioManager.Sfx.PlayerHit);
+    }
+
+    public void DeadAnimation()
+    {
+        _animator.Play("Dead");
+        _isDead = true;
     }
 
     public void AttackAnimation()
