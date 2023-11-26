@@ -18,7 +18,7 @@ public class ExplosiveEffect : MonoBehaviour
         }
 
         int rand = Random.Range(1, 100);
-        if (rand < percentage)
+        if (rand <= percentage)
         {
             GameObject clone = Instantiate(itmePrefabs[0], transform.position, Quaternion.identity);
             IsExplosion(clone);

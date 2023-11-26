@@ -43,13 +43,7 @@ public class Saw : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        EnemyHealth enemy = collision.GetComponent<EnemyHealth>();
-
-        if (enemy)
-        {
-            enemy.TakeDamage(damage, transform);
-        }
-        else if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             GameManager.Instance.TakeDamage(damage);
         }

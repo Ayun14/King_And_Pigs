@@ -26,20 +26,13 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
-        try
+        if (_intance == null)
         {
-            if (_intance == null)
-            {
-                _intance = this as T;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            _intance = this as T;
         }
-        catch (Exception e)
+        else
         {
-            Debug.LogError($"An exception occurred: {e.Message}");
+            Destroy(gameObject);
         }
     }
 }

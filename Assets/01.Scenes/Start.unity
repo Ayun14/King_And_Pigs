@@ -503,6 +503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 142964761}
   - component: {fileID: 142964762}
+  - component: {fileID: 142964763}
   m_Layer: 5
   m_Name: BGM slider
   m_TagString: Untagged
@@ -576,15 +577,15 @@ MonoBehaviour:
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 1125419630}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1045979171}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+      - m_Target: {fileID: 142964763}
+        m_TargetAssemblyTypeName: SetVolume, Assembly-CSharp
         m_MethodName: SetBGMVolume
         m_Mode: 0
         m_Arguments:
@@ -595,6 +596,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &142964763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142964760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bea86240522c83428f447f0050c70ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: e915db0fd086a6a41a1f15e421cc7668, type: 2}
+  bgmSlider: {fileID: 142964762}
 --- !u!1 &187406113
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,7 +2060,7 @@ GameObject:
   - component: {fileID: 705534366}
   m_Layer: 0
   m_Name: SFX
-  m_TagString: Untagged
+  m_TagString: SFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4957,6 +4972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 967458466}
   - component: {fileID: 967458467}
+  - component: {fileID: 967458468}
   m_Layer: 5
   m_Name: SFX slider
   m_TagString: Untagged
@@ -5030,16 +5046,16 @@ MonoBehaviour:
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 857803038}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1045979171}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: SetSFXVolume
+      - m_Target: {fileID: 967458468}
+        m_TargetAssemblyTypeName: SetVolume, Assembly-CSharp
+        m_MethodName: SetSFXSliderVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5049,6 +5065,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &967458468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967458465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bea86240522c83428f447f0050c70ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: e915db0fd086a6a41a1f15e421cc7668, type: 2}
+  bgmSlider: {fileID: 142964762}
 --- !u!1 &967907968
 GameObject:
   m_ObjectHideFlags: 0
@@ -7193,14 +7223,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1d2b4f87d25a642849d4be4238bce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: e915db0fd086a6a41a1f15e421cc7668, type: 2}
-  sfxSlider: {fileID: 0}
+  path: 
   bgmClips:
   - {fileID: 8300000, guid: d54fba302b8a24f46bfb5ef25078f8dd, type: 3}
   - {fileID: 8300000, guid: f770cfc824a2c104cbbf1272b8de3275, type: 3}
   - {fileID: 8300000, guid: d4c65c975dbe4f64fa793faa95394615, type: 3}
   - {fileID: 8300000, guid: 4f5bf6333f9af674b9d2261e69397f4d, type: 3}
   - {fileID: 8300000, guid: ffff8d43ec08989449755713a049e712, type: 3}
+  bgmAudioSource: {fileID: 0}
   sfxClips:
   - {fileID: 8300000, guid: 8ede0f77f20a92441889b4a8b9401726, type: 3}
   - {fileID: 8300000, guid: 7689b72028dbbe94bb3d8f4bdbdf9ddf, type: 3}
@@ -7209,7 +7239,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: db9dc1425ce92e142a5ac5fed3d5c5b4, type: 3}
   - {fileID: 8300000, guid: b54266c7eec07f840afeb7baab09ae71, type: 3}
   - {fileID: 8300000, guid: 926797fed32103346a54464cd7ca4e9b, type: 3}
-  - {fileID: 8300000, guid: de2d52058cfd4694eac33d001d0f523c, type: 3}
   - {fileID: 8300000, guid: 3f040f71819dbe84a80f2dc47a208308, type: 3}
   - {fileID: 8300000, guid: 362532f21fc8f024a83c370fb9cd39da, type: 3}
   - {fileID: 8300000, guid: 0129f998b44e9c549a97a30bf83ed119, type: 3}
@@ -7218,8 +7247,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5958fe39cd571ba4fb87e8c7c018615a, type: 3}
   - {fileID: 8300000, guid: 9cb4245ff279c9e43ab6b13fcc9d428a, type: 3}
   - {fileID: 8300000, guid: 0f2309f861c3f9d4a97c593aa21dd32e, type: 3}
-  - {fileID: 8300000, guid: 0151476396d027a47856146ade3a9b81, type: 3}
-  - {fileID: 8300000, guid: b988f53e078ebb94bbbd7fe6e5f16456, type: 3}
 --- !u!1 &1047286495
 GameObject:
   m_ObjectHideFlags: 0

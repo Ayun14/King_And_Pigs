@@ -9,7 +9,7 @@ public class TeleportManager : MonoBehaviour
 {
     private enum Door
     {
-        None, BossDoor, BossStart
+        None, BossDoor, BossStart, MiddleBossEndDoor
     }
 
     [SerializeField] private GameObject endDoorPos;
@@ -41,12 +41,6 @@ public class TeleportManager : MonoBehaviour
 
     private void Update()
     {
-        if (door == Door.BossStart)
-        {
-            AudioManager.Instance.PlayBGM(AudioManager.BGM.Boss);
-            return;
-        }
-
         if (_isDoorRange && Input.GetKeyDown(KeyCode.W))
         {
             StartCoroutine(DoorInMoveRoutine());
@@ -63,7 +57,13 @@ public class TeleportManager : MonoBehaviour
         yield return new WaitForSeconds(_teleportTime);
 
         if (IsStageEndDoor()) yield break;
-        if (door == Door.BossDoor) boss.SetActive(true);
+        if (door == Door.BossDoor)
+        {
+            boss.SetActive(true);
+            AudioManager.Instance.PlayBGM(AudioManager.BGM.Boss);
+        }
+        if (door == Door.MiddleBossEndDoor)
+            AudioManager.Instance.PlayBGM(AudioManager.BGM.Stage3);
 
         CinemachineSwitcher.Instance.SwitchProiority(camNum);
         yield return new WaitForSeconds(0.1f);

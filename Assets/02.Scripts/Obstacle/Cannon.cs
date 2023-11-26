@@ -46,7 +46,6 @@ public class Cannon : MonoBehaviour, IInteraction
         {
             _animator.SetTrigger("Shoot");
             Instantiate(cannonBallPrefab, ballSpawnPos.position, Quaternion.identity, transform);
-            AudioManager.Instance.PlaySFX(AudioManager.Sfx.Cannon);
             currentTime = 0;
         }
     }
