@@ -71,10 +71,10 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayBGM(BGM bgm)
     {
+        bgmAudioSource.Stop();
         if (bgmAudioSource.clip == bgmClips[(int)bgm])
             return;
 
-        bgmAudioSource.Stop();
         bgmAudioSource.clip = bgmClips[(int)bgm];
         bgmAudioSource.Play();
     }
