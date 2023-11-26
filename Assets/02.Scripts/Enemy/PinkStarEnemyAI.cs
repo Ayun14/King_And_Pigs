@@ -65,7 +65,7 @@ public class PinkStarEnemyAI : MonoBehaviour, IInteraction
                 isGrounded = true;
 
             // 벽에 닿지 않을 때까지 계속 돌진
-            if (dotProduct > 0) // 오른쪽
+            if (dotProduct >= 0) // 오른쪽
             {
                 _rigid.AddForce(Vector2.right * rushPower, ForceMode2D.Impulse);
                 _animator.SetBool("Idle", true); // 공격 애니메이션 트루 한거임

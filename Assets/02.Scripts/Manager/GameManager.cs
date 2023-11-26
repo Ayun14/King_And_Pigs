@@ -125,6 +125,21 @@ public class GameManager : Singleton<GameManager>
     {
         gameOverImage.rectTransform.DOAnchorPosY(1080, 0.9f).OnComplete(() =>
         {
+            switch (nowSceneName)
+            {
+                case "Tutorial Stage":
+                    AudioManager.Instance.PlayBGM(AudioManager.BGM.Stage1);
+                    break;
+                case "Stage 1":
+                    AudioManager.Instance.PlayBGM(AudioManager.BGM.Stage1);
+                    break;
+                case "Stage 2":
+                    AudioManager.Instance.PlayBGM(AudioManager.BGM.Stage2);
+                    break;
+                case "Stage 3":
+                    AudioManager.Instance.PlayBGM(AudioManager.BGM.Stage3);
+                    break;
+            }
             SceneManager.LoadScene(nowSceneName);
         });
     }

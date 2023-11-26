@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e982858fc5d5fa54bb6bc41a92dc56da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefabs: []
 --- !u!114 &5316993867790560420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,3 +167,4 @@ MonoBehaviour:
   itmePrefabs:
   - {fileID: 2187504952506235834, guid: 6bc5fab4c81edd946a660cb728cae9ba, type: 3}
   force: 2
+  percentage: 60
