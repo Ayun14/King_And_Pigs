@@ -36,7 +36,7 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         FadeIn(0.1f);
-        FadeOut(1f);
+        FadeOut(1.5f);
     }
 
     private void Update()
