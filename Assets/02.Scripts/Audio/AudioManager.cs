@@ -35,7 +35,7 @@ public class AudioManager : Singleton<AudioManager>
 
     [Header("SFX")]
     [SerializeField] private AudioClip[] sfxClips;
-    private GameObject[] sfxs;
+    private GameObject[] audioManagers;
     private AudioSource[] sfxAudioSources;
     private int channelIndex;
 
@@ -58,20 +58,19 @@ public class AudioManager : Singleton<AudioManager>
     private void Start()
     {
 
-        sfxs = GameObject.FindGameObjectsWithTag("SFX");
+        audioManagers = GameObject.FindGameObjectsWithTag("AudioManager");
 
-        if (sfxs.Length >= 2)
+        if (audioManagers.Length >= 2)
         {
-            for (int i = 1; i < sfxs.Length; i++)
+            for (int i = 1; i < audioManagers.Length; i++)
             {
-                Destroy(sfxs[i]);
+                Destroy(audioManagers[i]);
             }
         }
     }
 
     public void PlayBGM(BGM bgm)
     {
-        bgmAudioSource.Stop();
         if (bgmAudioSource.clip == bgmClips[(int)bgm])
             return;
 

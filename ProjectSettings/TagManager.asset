@@ -7,7 +7,7 @@ TagManager:
   - Door
   - Obstacle
   - Enemy
-  - SFX
+  - AudioManager
   layers:
   - Default
   - TransparentFX
